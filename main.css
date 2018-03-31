@@ -91,7 +91,7 @@ html,body {
   cursor:pointer;
 }
 
-.table-container > div > img {
+.table-container > div > a > img {
   display:block;
   margin:0 auto;
   width:150px;
