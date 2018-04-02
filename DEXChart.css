@@ -1,0 +1,28 @@
+canvas {
+	max-width: 16%;
+	min-height: 80vh;
+	margin: 0;
+	padding: 0;
+}
+
+#canvas1 {
+	max-width: 18%;
+}
+
+#chart-container {
+	display: inline-flex;
+		margin-left: 6%;
+		
+}
+
+#switch-container {
+	width: 100%;
+	display: inline-flex;
+	align-items: center;
+}
+
+button {
+	padding: 3px;
+	background-color: rgb(255, 168, 70);
+	text-align: center;
+}
