@@ -2,14 +2,14 @@
 
 canvas {
 	max-width:13%;
-	min-height: 80vh;
+	min-height: 70vh;
 	margin: 0;
 	padding: 0;
 }
 
 
 #canvas1 {
-	width: 18%;
+	width: 20%;
 }
 
 #chart-container{

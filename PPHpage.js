@@ -13,6 +13,7 @@ var data = {
 	"[\"PVDA Planned\", \"PVDA Actual\"]":[180, 131],
 	"[\"PSMA Planned\", \"PSMA Actual\"]":[180, 131],
 	"[\"BGRA Planned\", \"BGRA Actual\"]":[180, 131],
+	"[\"BGRA Planned\", \"BGRA Actual\"]":[180, 131],
 };
 
 function padLabels(labels) {
@@ -61,7 +62,7 @@ function generateData() {
 		window.onload = function() {
 			var ctx ;
 			var chartData = generateData();
-			for(var i = 1; i <= 7; i++) {
+			for(var i = 1; i <= 14; i++) {
 				ctx = document.getElementById('canvas'+i).getContext('2d');
 				var chart = new Chart(ctx, {
 				type: 'bar',
@@ -73,7 +74,7 @@ function generateData() {
 						display: false
 					},
 					title: {
-						display: false
+						display: true
 						
 					},
 					scales: { 
