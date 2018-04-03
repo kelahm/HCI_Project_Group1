@@ -1,0 +1,35 @@
+
+
+canvas {
+	max-width:13%;
+	min-height: 80vh;
+	margin: 0;
+	padding: 0;
+}
+
+
+#canvas1 {
+	width: 18%;
+}
+
+#chart-container{
+	display: inline-flex;
+	margin-left: 0%;
+}
+
+
+#switch-containerL {
+	width: 50%;
+	display: inline-flex;
+	align-items: center;
+	float: left;
+}
+
+#switch-containerR {
+	width: 50%;
+	display: inline-flex;
+	align-items: center;
+	float: right;
+}
+
+}
