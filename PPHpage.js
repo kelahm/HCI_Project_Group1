@@ -6,14 +6,14 @@ var data = {
 	"[\"4 pm Planned\", \"4 pm Actual\"]":[163, 108],
 	"[\"6 pm Planned\", \"6 pm Actual\"]":[118, 171],
 	"[\"8 pm Planned\", \"8 pm Actual\"]":[180, 131],
-	"[\"ORHA Planned\", \"ORHA Actual\"]":[180, 131],
-	"[\"BEDA Planned\", \"BEDA Actual\"]":[180, 131],
-	"[\"NZWA Planned\", \"NZWA Actual\"]":[180, 131],
-	"[\"BVYA Planned\", \"BVYA Actual\"]":[180, 131],
-	"[\"PVDA Planned\", \"PVDA Actual\"]":[180, 131],
-	"[\"PSMA Planned\", \"PSMA Actual\"]":[180, 131],
-	"[\"BGRA Planned\", \"BGRA Actual\"]":[180, 131],
-	"[\"BGRA Planned\", \"BGRA Actual\"]":[180, 131],
+	"[\"ORHA Planned\", \"ORHA Actual\"]":[894, 1310],
+	"[\"BEDA Planned\", \"BEDA Actual\"]":[1300, 1189],
+	"[\"NZWA Planned\", \"NZWA Actual\"]":[982, 999],
+	"[\"BVYA Planned\", \"BVYA Actual\"]":[754, 1214],
+	"[\"PVDA Planned\", \"PVDA Actual\"]":[1008, 1079],
+	"[\"PSMA Planned\", \"PSMA Actual\"]":[1345, 1395],
+	"[\"BGRA Planned\", \"BGRA Actual\"]":[1245, 1195],
+	"[\"BGRA Planned\", \"BGRA Actual\"]":[923, 786],
 };
 
 function padLabels(labels) {
@@ -41,7 +41,7 @@ function generateData() {
 	barChartData.push({
 		labels: newLabels,
 		datasets: [{
-			label: 'Packages Per Hour',
+			label: 'Packges Per Hour',
 			backgroundColor:  color,
 			borderColor:  color,
 			borderWidth: 1,
@@ -81,7 +81,7 @@ function generateData() {
 						yAxes: [{
 							ticks: {
 								display: i == 1,
-								max: 200,
+								max: 1400,
 								min: 0
 							},
 						}],
