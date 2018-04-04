@@ -7,6 +7,7 @@
   <title>Operations Metric Platform</title>
   <link rel="stylesheet" type="text/css" href="DEXChart.css"/>
   <link rel="stylesheet" type="text/css" href="Main.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Cousine" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script src="DEXChart.js"></script>
@@ -35,14 +36,21 @@
 
 <div class="body-container">
   <div id="switch-container">
-	<button style="margin:auto;"> Display as Map </button>
+	<table>
+		<tr>
+			<td id="notChosen" class="left"> Map View </td>
+			<td id="chosen" class="right"> Chart View </td>
+		</tr>
+	</table>
   </div>
   
   <div id="chart-container">
-	<script>
-		for(var i = 1; i <= 6; i++)
-			document.write('<canvas id="canvas' + i + '"></canvas>');
-	</script>
+	<div id="tierNames">
+		<script>
+			for(var i = 1; i <=6; i++) document.write("<div class='tiers'><h4>TIER " + i + "</h4><p id='tier" + i + "'></p></div>");
+		</script>
+	</div>
+	<canvas id="canvas"></canvas>
   </div>
 </div>
 

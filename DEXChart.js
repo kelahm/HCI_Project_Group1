@@ -1,4 +1,4 @@
-var data = {
+var dexData = {
 	"[\"Package Not Delivered\", \"Incorrect Address\", \"Security Delay\"]":[932, 212, 23],
 	"[\"Refused By Recipient\", \"Not In/Business Closed\", \"Damaged- Not Complete\"]":[521, 324, 34],
 	"[\"Damaged- Complete\", \"C O D Delivery\", \"Sorted to Wrong Route\"]":[545, 32, 23],
@@ -6,80 +6,90 @@ var data = {
 	"[\"Release Signiture on File\", \"Delivered to Wrong Address\", \"Not Attempted\"]":[545, 322, 23],
 	"[\"Shipment Refused\", \"Security Delay\", \"Wrong Route\"]":[921, 832, 634],
 };
-function padLabels(labels) {
-	var longest = ("Business Closed Due to Strike").length;
-	var newLabels = [];
-	var currLabel = "";
-	for(var label in labels) {
-		currLabel = labels[label];
-		while(currLabel.length < longest) {
-			currLabel = " " + currLabel;
-		}
-		newLabels.push(currLabel);
-	}
-	return newLabels;
-}
+var total = 0;
 
 function generateData() {
-	var barChartData = [];
 	var color = "rgb(75, 19, 136)";
-	for(var labels in data) {
-		var newLabels = padLabels(JSON.parse(labels));
-		console.log(newLabels);
-	barChartData.push({
-		labels: newLabels,
-		datasets: [{
-			label: 'Exception Count:',
-			backgroundColor:  color,
-			borderColor:  color,
-			borderWidth: 1,
-			data: data[labels]
-		}]
-	});
+	var gridColor = "rgba(0, 0, 0, 0.1)";
+	var labels = [];
+	var colors = [];
+	var data = [];
+	var gridlines = ["rgba(0, 0, 0, 0.1)"];
+	var tierTotal;
+	var tierNum = 1;
+	
+	for(var tier in dexData) {
+		var label = JSON.parse(tier);
+		tierTotal = 0;
+		for (var i = 0; i < label.length; i++) {
+			labels.push(label[i]);
+			data.push(dexData[tier][i]);
+			colors.push(color);
+			if (i > 0) gridlines.push(gridColor);
+			
+			tierTotal += dexData[tier][i];
+			total += dexData[tier][i];
+		}
+		gridlines.push('black');
+		
+		document.getElementById("tier"+tierNum).innerHTML = "Total: " + tierTotal;
+		tierNum++;
+		
 		if(color == "rgb(75, 19, 136)") color = "rgb(234, 98, 20)";
 		else color = "rgb(75, 19, 136)";
+		
 	}
 	
-	return barChartData;
+	return {data: {
+			labels: labels,
+			datasets: [{
+				label: 'Exception Count:',
+				backgroundColor:  colors,
+				borderColor:  colors,
+				borderWidth: 1,
+				data: data
+			}]
+		}, 
+		gridColors: gridlines};
 }
 
 		window.onload = function() {
 			var ctx ;
 			var chartData = generateData();
-			for(var i = 1; i <= 6; i++) {
-				ctx = document.getElementById('canvas'+i).getContext('2d');
-				var chart = new Chart(ctx, {
+			ctx = document.getElementById('canvas').getContext('2d');
+			var chart = new Chart(ctx, {
 				type: 'bar',
-				data: chartData[i-1],
+				data: chartData.data,
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
 					legend: {
 						display: false
 					},
+					tooltip: {
+						displayColors: false
+					},
 					title: {
-						display: true,
-						text: 'TIER '+ i
+						display: false,
 					},
 					scales: {
 						yAxes: [{
 							ticks: {
-								display: i == 1,
-								max: 1000,
-								min: 0
+								display: true
 							},
 						}],
 						xAxes: [{
 							ticks: {
-								fontFamily: 'monospace',
 								autoSkip: false,
 								maxRotation: 90,
-								minRotation: 90
-								
+								minRotation: 90,
 							},
+							gridLines: {
+								color: chartData.gridColors
+							}
 						}]
 					}
 				}
 			});
-			}
+			console.log(chart);
 		};

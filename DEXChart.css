@@ -1,28 +1,69 @@
 canvas {
-	max-width: 16%;
-	min-height: 80vh;
-	margin: 0;
-	padding: 0;
+	min-width: 85%;
+	max-width: 85%;
+	margin-left: 7%;
+	min-height: 70vh;
+	max-height: 70vh;
 }
 
-#canvas1 {
-	max-width: 18%;
+#tierNames {
+	display:inline-flex;
+	justify-content: space-around;
+	width: 83%;
+	margin-left: 9%;
+	font-family:Verdana, 'Geneva', sans-serif;
+	margin-top: 2em;
+}
+
+.tiers {
+	text-align:center;
 }
 
 #chart-container {
-	display: inline-flex;
-		margin-left: 6%;
-		
+
 }
 
 #switch-container {
 	width: 100%;
 	display: inline-flex;
-	align-items: center;
+	justify-content: center;
 }
 
 button {
 	padding: 3px;
 	background-color: rgb(255, 168, 70);
 	text-align: center;
+}
+
+#chosen {
+	background-color: rgb(255, 168, 70);
+	padding: 10px;
+}
+
+#notChosen {
+	background-color: lightGray;
+	padding: 10px;
+	color: gray;
+}
+
+#notChosen:hover {
+	background-color: rgb(255, 168, 70);
+	color: black;
+	font-weight: bold;
+}
+
+#notChosen:hover ~ #chosen{
+	background-color: lightGray;
+	color: gray;
+}
+
+.left {
+	border-top-left-radius: 10%;
+	border-bottom-left-radius: 10%;
+	
+}
+
+.right {
+	border-top-right-radius: 10%;
+	border-bottom-right-radius: 10%;
 }
