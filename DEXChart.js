@@ -25,6 +25,8 @@ function showMapView() {
 	showMap();
 }
 
+var tooltipData = [];
+var tooltipLabels = [];
 function generateData() {
 	var color = "rgb(75, 19, 136)";
 	var gridColor = "rgba(0, 0, 0, 0.1)";
@@ -76,6 +78,9 @@ function generateMapData() {
 	var datasets = [];
 	var data = [[], [], []];
 	var color = ['rgb(42, 2, 68)', 'rgb(102, 54, 132)', 'rgb(205, 167, 229)'];
+	var datasetLabels = [[], [], []];
+	tooltipLabels = [[], [], []];
+	tooltipData = [[], [], []];
 	
 	for(var tier in dexData) {
 		var label = JSON.parse(tier);
@@ -83,6 +88,8 @@ function generateMapData() {
 		
 		for (var i = 0; i < label.length; i++) {
 			data[i].push(dexData[tier][i]);
+			tooltipLabels[i].push(label[i]);
+			tooltipData[i].push(dexData[tier][i]);
 			
 			tierTotal += dexData[tier][i];
 			total += dexData[tier][i];
@@ -90,7 +97,7 @@ function generateMapData() {
 		}
 
 		document.getElementById("tier"+tierNum).innerHTML = "Total: " + tierTotal;
-		labels.push("TIER " + tierNum + " Total: " + tierTotal);
+		labels.push("TIER " + tierNum);
 		tierNum++;
 	}
 	
@@ -109,27 +116,27 @@ function generateMapData() {
 	}
 	
 			datasets.push({
-				label: 'Exception Count:',
+				label: datasetLabels[0],
 				borderWidth: 5,
 				data: data[0],
 				backgroundColor:  color[0],
-				borderColor:  'black'
+				borderColor:  'white'
 			});
 			
 			datasets.push({
-				label: 'Exception Count:',
+				label: datasetLabels[1],
 				borderWidth: 5,
 				data: data[1],
 				backgroundColor:  color[1],
-				borderColor:  'black'
+				borderColor:  'white'
 			});
 			
 			datasets.push({
-				label: 'Exception Count:',
+				label: datasetLabels[2],
 				borderWidth: 5,
 				data: data[2],
 				backgroundColor:  color[2],
-				borderColor:  'black'
+				borderColor:  'white'
 			});
 	
 			
@@ -153,7 +160,7 @@ function showChart() {
 					legend: {
 						display: false
 					},
-					tooltip: {
+					tooltips: {
 						displayColors: false
 					},
 					title: {
@@ -195,10 +202,15 @@ function showMap() {
 						display: false
 					},
 					tooltips: {
-						displayColors: false
+						displayColors: false,
+						callbacks: {
+							label: function(tooltipItems, data) { 
+								return tooltipLabels[tooltipItems.datasetIndex][tooltipItems.index] + ' : ' + tooltipData[tooltipItems.datasetIndex][tooltipItems.index];
+							}
+						}
 					},
 					title: {
-						display: false,
+						display: false
 					},
 					scales: {
      xAxes: [{
@@ -207,13 +219,15 @@ function showMap() {
      }],
      yAxes: [{
 		 categoryPercentage: 1.0,
-            barPercentage: .9,
-          stacked: true
+            barPercentage: .99,
+          stacked: true,
+		  gridLines: {
+			  display: false
+		  }
      }]
 }
 				}
 			});
-			console.log(chart);
 		};
 
 window.onload = showChart;
