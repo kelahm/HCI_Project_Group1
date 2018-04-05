@@ -35,35 +35,43 @@ button {
 	text-align: center;
 }
 
-#chosen {
+.chosen {
 	background-color: rgb(255, 168, 70);
 	padding: 10px;
+	font-weight: bold;
 }
 
-#notChosen {
+.notChosen {
 	background-color: lightGray;
 	padding: 10px;
 	color: gray;
+	font-weight: normal;
 }
 
-#notChosen:hover {
+.notChosen:hover {
 	background-color: rgb(255, 168, 70);
 	color: black;
 	font-weight: bold;
 }
 
-#notChosen:hover ~ #chosen{
+.notChosen:hover ~ .chosen{
 	background-color: lightGray;
 	color: gray;
+	font-weight: normal;
 }
 
-.left {
+#chooseMap {
 	border-top-left-radius: 10%;
 	border-bottom-left-radius: 10%;
 	
 }
 
-.right {
+#chooseChart {
 	border-top-right-radius: 10%;
 	border-bottom-right-radius: 10%;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
 }

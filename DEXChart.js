@@ -8,6 +8,23 @@ var dexData = {
 };
 var total = 0;
 
+function showChartView() {
+	document.getElementById("chooseChart").className = "chosen";
+	document.getElementById("chooseMap").className = "notChosen";
+	document.getElementById("map").style.display = "none";
+	document.getElementById("chart").style.display = "block";
+}
+
+function showMapView() {
+	document.getElementById("chooseMap").className = "chosen";
+	document.getElementById("chooseChart").className = "notChosen";
+	
+	document.getElementById("map").style.display= "block";
+	document.getElementById("chart").style.display= "none";
+	
+	showMap();
+}
+
 function generateData() {
 	var color = "rgb(75, 19, 136)";
 	var gridColor = "rgba(0, 0, 0, 0.1)";
@@ -53,7 +70,76 @@ function generateData() {
 		gridColors: gridlines};
 }
 
-		window.onload = function() {
+function generateMapData() {
+	var labels = [];
+	var tierNum = 1;
+	var datasets = [];
+	var data = [[], [], []];
+	
+	for(var tier in dexData) {
+		var label = JSON.parse(tier);
+		tierTotal = 0;
+		
+		for (var i = 0; i < label.length; i++) {
+			data[i].push(dexData[tier][i]);
+			
+			tierTotal += dexData[tier][i];
+			total += dexData[tier][i];
+			
+		}
+
+		document.getElementById("tier"+tierNum).innerHTML = "Total: " + tierTotal;
+		labels.push("TIER " + tierNum + " Total: " + tierTotal);
+		tierNum++;
+	}
+	
+	var max = 0;
+	var total = 0;
+	for(var i = 0; i < 6; i++) {
+		total = data[0][i] + data[1][i] + data[2][i];
+		if (total > max) max = total;
+	}
+	
+	for(var i = 0; i < 6; i++) {
+		total = data[0][i] + data[1][i] + data[2][i];
+		data[0][i] *= max / total;
+		data[1][i] *= max / total;
+		data[2][i] *= max / total;
+	}
+	
+			datasets.push({
+				label: 'Exception Count:',
+				borderWidth: 1,
+				data: data[0],
+				backgroundColor:  'white',
+				borderColor:  'black'
+			});
+			
+			datasets.push({
+				label: 'Exception Count:',
+				borderWidth: 1,
+				data: data[1],
+				backgroundColor:  'white',
+				borderColor:  'black'
+			});
+			
+			datasets.push({
+				label: 'Exception Count:',
+				borderWidth: 1,
+				data: data[2],
+				backgroundColor:  'white',
+				borderColor:  'black'
+			});
+	
+			
+	
+	return {data: {
+			labels: labels,
+			datasets: datasets
+		}};
+}
+
+function showChart() {
 			var ctx ;
 			var chartData = generateData();
 			ctx = document.getElementById('canvas').getContext('2d');
@@ -93,3 +179,40 @@ function generateData() {
 			});
 			console.log(chart);
 		};
+		
+function showMap() {
+			var ctx ;
+			var chartData = generateMapData();
+			ctx = document.getElementById('mapCanvas').getContext('2d');
+			var chart = new Chart(ctx, {
+				type: 'horizontalBar',
+				data: chartData.data,
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					tooltip: {
+						displayColors: false
+					},
+					title: {
+						display: false,
+					},
+					scales: {
+     xAxes: [{
+          stacked: true,
+		  display: false  
+     }],
+     yAxes: [{
+		 categoryPercentage: 1.0,
+            barPercentage: 1.0,
+          stacked: true
+     }]
+}
+				}
+			});
+			console.log(chart);
+		};
+
+window.onload = showChart;

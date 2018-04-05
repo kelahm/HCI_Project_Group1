@@ -38,19 +38,25 @@
   <div id="switch-container">
 	<table>
 		<tr>
-			<td id="notChosen" class="left"> Map View </td>
-			<td id="chosen" class="right"> Chart View </td>
+			<td class="notChosen" id="chooseMap" onclick="showMapView()"><a> Map View </a></td>
+			<td class="chosen" id="chooseChart" onclick="showChartView()"><a> Chart View </a></td>
 		</tr>
 	</table>
   </div>
   
   <div id="chart-container">
+	<div id="chart">
 	<div id="tierNames">
 		<script>
 			for(var i = 1; i <=6; i++) document.write("<div class='tiers'><h4>TIER " + i + "</h4><p id='tier" + i + "'></p></div>");
 		</script>
 	</div>
 	<canvas id="canvas"></canvas>
+	</div>
+	
+	<div id="map" style="display:none">
+		<canvas id="mapCanvas"></canvas>
+	</div>
   </div>
 </div>
 
