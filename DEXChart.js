@@ -213,21 +213,51 @@ function showMap() {
 						display: false
 					},
 					scales: {
-     xAxes: [{
-          stacked: true,
-		  display: false  
-     }],
-     yAxes: [{
-		 categoryPercentage: 1.0,
-            barPercentage: .99,
-          stacked: true,
-		  gridLines: {
-			  display: false
-		  }
-     }]
-}
+						xAxes: [{
+							stacked: true,
+							display: false  
+						}],
+						yAxes: [{
+							categoryPercentage: 1.0,
+							barPercentage: 1.0,
+							stacked: true,
+							gridLines: {
+								display: false
+							}
+						}],
+					},
+	 animation: {
+        onComplete: function () {
+			var ctx = this.chart.ctx;
+			ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+			ctx.textAlign = 'left';
+			ctx.textBaseline = 'bottom';
+
+			for(var d in this.data.datasets) {
+				var dataset = this.data.datasets[d];
+				for (var i = 0; i < dataset.data.length; i++) {
+					ctx.fillStyle = '#FFF'; // label color
+					var label = tooltipLabels[d][i];
+					
+					var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+					
+					var yPos = model.y + 8;
+					var xPos = 0;
+					
+					if (d > 0) {
+						var model2 = this.data.datasets[d-1]._meta[Object.keys(this.data.datasets[d-1]._meta)[0]].data[i]._model;
+						xPos = 8 + model2.x;
+					} else {
+						xPos = ctx.measureText(label).width / 2;
+					}
+					
+					ctx.fillText(label, xPos, yPos);
 				}
-			});
-		};
+            }               
+        }
+       }
+	}
+	});
+};
 
 window.onload = showChart;
