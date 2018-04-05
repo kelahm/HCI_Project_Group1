@@ -75,6 +75,7 @@ function generateMapData() {
 	var tierNum = 1;
 	var datasets = [];
 	var data = [[], [], []];
+	var color = ['rgb(42, 2, 68)', 'rgb(102, 54, 132)', 'rgb(205, 167, 229)'];
 	
 	for(var tier in dexData) {
 		var label = JSON.parse(tier);
@@ -109,25 +110,25 @@ function generateMapData() {
 	
 			datasets.push({
 				label: 'Exception Count:',
-				borderWidth: 1,
+				borderWidth: 5,
 				data: data[0],
-				backgroundColor:  'white',
+				backgroundColor:  color[0],
 				borderColor:  'black'
 			});
 			
 			datasets.push({
 				label: 'Exception Count:',
-				borderWidth: 1,
+				borderWidth: 5,
 				data: data[1],
-				backgroundColor:  'white',
+				backgroundColor:  color[1],
 				borderColor:  'black'
 			});
 			
 			datasets.push({
 				label: 'Exception Count:',
-				borderWidth: 1,
+				borderWidth: 5,
 				data: data[2],
-				backgroundColor:  'white',
+				backgroundColor:  color[2],
 				borderColor:  'black'
 			});
 	
@@ -193,7 +194,7 @@ function showMap() {
 					legend: {
 						display: false
 					},
-					tooltip: {
+					tooltips: {
 						displayColors: false
 					},
 					title: {
@@ -206,7 +207,7 @@ function showMap() {
      }],
      yAxes: [{
 		 categoryPercentage: 1.0,
-            barPercentage: 1.0,
+            barPercentage: .9,
           stacked: true
      }]
 }
