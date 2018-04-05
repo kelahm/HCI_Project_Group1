@@ -13,6 +13,10 @@ function showChartView() {
 	document.getElementById("chooseMap").className = "notChosen";
 	document.getElementById("map").style.display = "none";
 	document.getElementById("chart").style.display = "block";
+	document.getElementById("tierNames").className = "chartTierNames";
+	document.getElementById("chart-container").style.display = "block";
+	
+	showChart();
 }
 
 function showMapView() {
@@ -21,6 +25,8 @@ function showMapView() {
 	
 	document.getElementById("map").style.display= "block";
 	document.getElementById("chart").style.display= "none";
+	document.getElementById("tierNames").className = "mapTierNames";
+	document.getElementById("chart-container").style.display = "inline-flex";
 	
 	showMap();
 }
@@ -207,7 +213,8 @@ function showMap() {
 							label: function(tooltipItems, data) { 
 								return tooltipLabels[tooltipItems.datasetIndex][tooltipItems.index] + ' : ' + tooltipData[tooltipItems.datasetIndex][tooltipItems.index];
 							}
-						}
+						},
+						axis: 'y'
 					},
 					title: {
 						display: false
@@ -221,42 +228,44 @@ function showMap() {
 							categoryPercentage: 1.0,
 							barPercentage: 1.0,
 							stacked: true,
-							gridLines: {
-								display: false
-							}
+							display: false
 						}],
-					},
-	 animation: {
-        onComplete: function () {
-			var ctx = this.chart.ctx;
+					}
+				},
+				plugins: [{
+        afterDatasetsDraw: function (chart) {
+			var ctx = chart.chart.ctx;
 			ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
 			ctx.textAlign = 'left';
 			ctx.textBaseline = 'bottom';
+			console.log(chart);
 
-			for(var d in this.data.datasets) {
-				var dataset = this.data.datasets[d];
+			for(var d in chart.data.datasets) {
+				var dataset = chart.data.datasets[d];
+				var padding = 15;
 				for (var i = 0; i < dataset.data.length; i++) {
-					ctx.fillStyle = '#FFF'; // label color
+					if (d < 2) ctx.fillStyle = '#FFF'; // label color
+					else ctx.fillStyle = '#000';
+					ctx.font = "15pt Verdana";
 					var label = tooltipLabels[d][i];
 					
 					var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
 					
 					var yPos = model.y + 8;
-					var xPos = 0;
+					var xPos = model.x - ctx.measureText(label).width - padding;
 					
 					if (d > 0) {
-						var model2 = this.data.datasets[d-1]._meta[Object.keys(this.data.datasets[d-1]._meta)[0]].data[i]._model;
-						xPos = 8 + model2.x;
+						var model2 = chart.data.datasets[d-1]._meta[Object.keys(chart.data.datasets[d-1]._meta)[0]].data[i]._model;
+						if (xPos-padding > model2.x) ctx.fillText(label, xPos, yPos);
 					} else {
-						xPos = ctx.measureText(label).width / 2;
+						if (xPos > padding) ctx.fillText(label, xPos, yPos);
 					}
 					
-					ctx.fillText(label, xPos, yPos);
+					
 				}
             }               
         }
-       }
-	}
+       }]
 	});
 };
 
