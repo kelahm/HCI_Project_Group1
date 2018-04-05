@@ -1,35 +1,14 @@
-
-
 canvas {
-	max-width:13%;
+	min-width: 40%;
+	max-width: 40%;
 	min-height: 70vh;
-	margin: 0;
+	max-height: 70vh;
+	margin-left: 7%;
 	padding: 0;
 }
 
-
-#canvas1 {
-	width: 20%;
-}
-
-#chart-container{
+.chart-container{
 	display: inline-flex;
 	margin-left: 0%;
-}
-
-
-#switch-containerL {
-	width: 50%;
-	display: inline-flex;
-	align-items: center;
-	float: left;
-}
-
-#switch-containerR {
-	width: 50%;
-	display: inline-flex;
-	align-items: center;
-	float: right;
-}
-
+	width: 100%;
 }

@@ -1,101 +1,164 @@
-var data = {
-	"[\"8 am Planned\", \"8 am Actual\"]":[166, 124],
-	"[\"10 am Planned\", \"10 am Actual\"]":[185,149],
-	"[\"12 pm Planned\", \"12 pm Actual\"]":[175,146],
-	"[\"2 pm Planned\", \"2 pm Actual\"]":[135, 195],
-	"[\"4 pm Planned\", \"4 pm Actual\"]":[163, 108],
-	"[\"6 pm Planned\", \"6 pm Actual\"]":[118, 171],
-	"[\"8 pm Planned\", \"8 pm Actual\"]":[180, 131],
-	"[\"ORHA Planned\", \"ORHA Actual\"]":[894, 1310],
-	"[\"BEDA Planned\", \"BEDA Actual\"]":[1300, 1189],
-	"[\"NZWA Planned\", \"NZWA Actual\"]":[982, 999],
-	"[\"BVYA Planned\", \"BVYA Actual\"]":[754, 1214],
-	"[\"PVDA Planned\", \"PVDA Actual\"]":[1008, 1079],
-	"[\"PSMA Planned\", \"PSMA Actual\"]":[1345, 1395],
-	"[\"BGRA Planned\", \"BGRA Actual\"]":[1245, 1195],
-	"[\"BGRA Planned\", \"BGRA Actual\"]":[923, 786],
+var time = {
+	"8 am":[166, 124],
+	"10 am":[185,149],
+	"12 am":[175,146],
+	"2 pm":[135, 195],
+	"4 pm":[163, 108],
+	"6 pm":[118, 171],
+	"8 pm":[180, 131],
 };
 
-function padLabels(labels) {
-	var longest = ("10 am Planned").length;
-	var newLabels = [];
-	var currLabel = "";
-	for(var label in labels) {
-		currLabel = labels[label];
-		while(currLabel.length < longest) {
-			currLabel = " " + currLabel;
+var timeJustData = [[166, 124],
+	[185,149],
+	[175,146],
+	[135, 195],
+	[163, 108],
+	[118, 171],
+	[180, 131],
+];
+
+var place = {
+	"ORHA":[1310, 894],
+	"BEDA":[1300, 1189],
+	"NZWA":[982, 999],
+	"BVYA":[754, 1214],
+	"PVDA":[1008, 1079],
+	"PSMA":[1345, 1395],
+	"BGRA ":[1245, 1195],
+};
+
+var placeJustData = [
+	[1310, 894],
+	[1300, 1189],
+	[982, 999],
+	[754, 1214],
+	[1008, 1079],
+	[1345, 1395],
+	[1245, 1195],
+];
+
+function generateData(data) {
+	var plannedData = [];
+	var actualData = [];
+	var actualColors = [];
+	var plannedColors = [];
+	var labels = [];
+	
+	for(var label in data) {
+		labels.push(label);
+		
+		if(data[label][0] > data[label][1]) {
+			plannedData.push(data[label][0]-data[label][1]);
+			actualData.push(data[label][1]);
+			actualColors.push( "rgb(75, 19, 136)");
+			plannedColors.push('rgb(234, 98, 20)');
+		} else {
+			plannedData.push(data[label][0]);
+			actualData.push(data[label][1]-data[label][0]);
+			plannedColors.push( "rgb(75, 19, 136)");
+			actualColors.push('rgb(234, 98, 20)');
 		}
-		newLabels.push(currLabel);
-	}
-	return newLabels;
-}
-
-
-function generateData() {
-	var barChartData = [];
-	var color = "rgb(75, 19, 136)";
-	for(var labels in data) {
-		var newLabels = padLabels(JSON.parse(labels));
-		console.log(newLabels);
-
-	barChartData.push({
-		labels: newLabels,
-		datasets: [{
-			label: 'Packges Per Hour',
-			backgroundColor:  color,
-			borderColor:  color,
-			borderWidth: 1,
-			data: data[labels]
-			
-		}]
 		
-	});
-		
-	if(color == "rgb(75, 19, 136)") color = "rgb(234, 98, 20)";
-	else color = "rgb(75, 19, 136)";
-
 	}
 	
-	return barChartData;
+	return {
+		labels: labels,
+		datasets: [{
+			label: 'Planned',
+			backgroundColor: plannedColors,
+			borderColor:  plannedColors,
+			borderWidth: 1,
+			data: plannedData
+		},
+		{
+			label: 'Actual',
+			backgroundColor:  actualColors,
+			borderColor: actualColors,
+			borderWidth: 1,	
+			data: actualData
+		}]
+	};
 }
 
 		window.onload = function() {
 			var ctx ;
-			var chartData = generateData();
-			for(var i = 1; i <= 14; i++) {
-				ctx = document.getElementById('canvas'+i).getContext('2d');
+			var chartData = generateData(time);
+				ctx = document.getElementById('canvas').getContext('2d');
 				var chart = new Chart(ctx, {
 				type: 'bar',
-				data: chartData[i-1],
+				data: chartData,
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
 					title: {
-						display: true
-						
+						display: true,
+						text: 'Time',
+						fontSize: 30
 					},
 					scales: { 
 						yAxes: [{
-							ticks: {
-								display: i == 1,
-								max: 1400,
-								min: 0
-							},
+							stacked: true,
+							scaleLabel: {
+        display: true,
+        labelString: 'Packages Per Hour'
+      }
 						}],
 						xAxes: [{
 							ticks: {
-								fontFamily: 'monospace',
 								autoSkip: false,
-								maxRotation: 90,
-								minRotation: 90
-								
 							},
+							stacked: true
+						}]
+					},
+										tooltips: {
+						displayColors: false,
+						callbacks: {
+							label: function(tooltipItems, data) { 
+								console.log(tooltipItems);
+								return  ['Actual: ' + timeJustData[tooltipItems.index][0], "Planned: " + timeJustData[tooltipItems.index][1]];
+							},
+						}
+					},
+				}
+			});
+			
+			var chartData = generateData(place);
+				ctx = document.getElementById('canvas2').getContext('2d');
+				var chart = new Chart(ctx, {
+				type: 'bar',
+				data: chartData,
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					tooltips: {
+						displayColors: false,
+						callbacks: {
+							label: function(tooltipItems, data) { 
+								console.log(tooltipItems);
+								return  ['Actual: ' + placeJustData[tooltipItems.index][0], "Planned: " + placeJustData[tooltipItems.index][1]];
+							},
+						}
+					},
+					title: {
+						display: true,
+						text: 'District',
+						fontSize: 30
+					},
+					scales: { 
+						yAxes: [{
+							stacked: true,
+							scaleLabel: {
+        display: true,
+        labelString: 'Average Packages Per Hour'
+      }
+						}],
+						xAxes: [{
+							ticks: {
+								autoSkip: false,
+							},
+							stacked: true
 						}]
 					}
 				}
 			});
-			}
 		};

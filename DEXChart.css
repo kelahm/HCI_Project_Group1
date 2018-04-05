@@ -107,7 +107,7 @@ button {
 #mapCanvas {
 	margin-left: 1%;
 	max-height: 70vh;
-	width: 90%;
+	min-width: 88%;
 }
 
 #chooseMap {
@@ -153,6 +153,7 @@ html,body {
   width:100%;
   height:50px;
   box-shadow: 0 0 3px 3px lightGray;
+  background-color:#4B1388
 }
 
 .title-container {
@@ -167,7 +168,7 @@ html,body {
   margin-left: 37%;
   display:block;
   line-height:50px;
-  color: #8459AB;
+  color: white;
   font-size:30px;
   font-family:Verdana, 'Geneva', sans-serif;
 }

@@ -28,3 +28,9 @@
     background-color: #e6e6ff;
 }
 
+.icon {
+	position:absolute;
+	left: 2%;
+	top: 30px;
+}
+
