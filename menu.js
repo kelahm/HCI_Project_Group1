@@ -237,6 +237,39 @@ var drillDownInfo = ["Eastern	Bostonian	ORHA	Reginald Cruz",
 "Southern	Delta	OKCA	Silvia Boyd",
 "Southern	Delta	JBRA	Donna Gardner"];
 
+var exceptions = ["Package Not Delivered", "Incorrect Address", "Security Delay", "Refused By Recipient", "Not In/Business Closed", "Damaged- Not Complete", "Damaged- Complete", "C O D Delivery", "Sorted to Wrong Route",
+	"Business Closed Due to Strike", "Payment Recieved", "Future Delivery", "Release Signiture on File", "Delivered to Wrong Address", "Not Attempted", "Shipment Refused", "Security Delay", "Wrong Route"];
+var tiers = {"Critical": exceptions.slice(0, 3), "High Priority": exceptions.slice(3, 6), "Medium Priority": exceptions.slice(6, 9), "Low Priority": exceptions.slice(9)};
+
+var dexData = [];
+function generateDEXData() {
+	for (var i = 0; i < drillDownInfo.length; i++) {
+		dexData.push([]);
+		for(var e in exceptions) {
+			dexData[i].push(Math.floor(Math.random() * 1000));
+		}
+	}
+}
+
+function getDEXData(exception) {
+	var region = document.getElementById("Region").value;
+	var district = document.getElementById("District").value;
+	var location = document.getElementById("Location").value;
+	
+	var total = 0;
+	var line;
+	for(var l in drillDownInfo) {
+		line = drillDownInfo[l].split("\t");
+		if(region == "None Selected" || region == line[0]) {
+			if (district == "None Selected" || district == line[1]) {
+				if (location == "None Selected" || location == line[2]) {
+					total += dexData[l][exceptions.indexOf(exception)];
+				}
+			}
+		}
+	}
+	return total;
+}
 // formats the information about regions, districts, locations, etc as an object in the form
 // {<district>: {
 //     <region>: {
@@ -259,3 +292,4 @@ function formatDrillDownInfo() {
 populateDrillDownMenu();
 populateDefaultDrillDownMenu();
 loadDates();
+generateDEXData();

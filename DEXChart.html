@@ -48,13 +48,9 @@
   <div id="chart-container">
 	
 	<div id="tierNames"	class="chartTierNames">
-		<script>
-			for(var i = 1; i <=6; i++) document.write("<div class='tiers'><h5>TIER " + i + "</h5><p id='tier" + i + "'></p></div>");
-		</script>
 	</div>
 	
 	<div id="chart">
-	<canvas id="canvas"></canvas>
 	</div>
 	
 	<div id="map" style="display:none">
@@ -256,6 +252,7 @@
 	$('.dropdown-menu').on('change', function(event) {
 		updateDefaultDrillDown();
 		updateDrillDown();
+		showChartView();
 	});
 
 	$('body').on('click', function(event) {
