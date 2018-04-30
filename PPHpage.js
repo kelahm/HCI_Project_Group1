@@ -37,6 +37,8 @@ var placeJustData = [
 	[1245, 1195],
 ];
 
+var DrillDownLabel = "";
+
 function generateData(data) {
 	var plannedData = [];
 	var actualData = [];
@@ -80,51 +82,61 @@ function generateData(data) {
 	};
 }
 
-		window.onload = function() {
-			var ctx ;
-			var chartData = generateData(time);
-				ctx = document.getElementById('canvas').getContext('2d');
-				var chart = new Chart(ctx, {
-				type: 'bar',
-				data: chartData,
-				options: {
-					responsive: true,
-					maintainAspectRatio: false,
-					title: {
+		window.onload = drawPPHCharts;
+var chart;		
+var placeChart;
+
+function drawPPHCharts() {
+	updatePPHData();
+	var ctx ;
+	var chartData = generateData(time);
+	ctx = document.getElementById('canvas').getContext('2d');
+	
+	if (chart) chart.destroy();
+	
+	chart = new Chart(ctx, {
+		type: 'bar',
+		data: chartData,
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			title: {
+				display: true,
+				text: 'Time',
+				fontSize: 30
+			},
+			scales: { 
+				yAxes: [{
+					stacked: true,
+					scaleLabel: {
 						display: true,
-						text: 'Time',
-						fontSize: 30
+						labelString: 'Packages Per Hour'
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						autoSkip: false,
 					},
-					scales: { 
-						yAxes: [{
-							stacked: true,
-							scaleLabel: {
-        display: true,
-        labelString: 'Packages Per Hour'
-      }
-						}],
-						xAxes: [{
-							ticks: {
-								autoSkip: false,
-							},
-							stacked: true
-						}]
-					},
-										tooltips: {
-						displayColors: false,
-						callbacks: {
-							label: function(tooltipItems, data) { 
-								console.log(tooltipItems);
-								return  ['Actual: ' + timeJustData[tooltipItems.index][0], "Planned: " + timeJustData[tooltipItems.index][1]];
-							},
-						}
+					stacked: true
+				}]
+			},
+			tooltips: {
+				displayColors: false,
+				callbacks: {
+					label: function(tooltipItems, data) { 
+						console.log(tooltipItems);
+						return  ['Actual: ' + timeJustData[tooltipItems.index][0], "Planned: " + timeJustData[tooltipItems.index][1]];
 					},
 				}
-			});
+			},
+		}
+	});
 			
+	if (placeChart) placeChart.destroy();
+	if (DrillDownLabel) {
 			var chartData = generateData(place);
 				ctx = document.getElementById('canvas2').getContext('2d');
-				var chart = new Chart(ctx, {
+				placeChart = new Chart(ctx, {
 				type: 'bar',
 				data: chartData,
 				options: {
@@ -141,7 +153,7 @@ function generateData(data) {
 					},
 					title: {
 						display: true,
-						text: 'District',
+						text: DrillDownLabel,
 						fontSize: 30
 					},
 					scales: { 
@@ -161,4 +173,5 @@ function generateData(data) {
 					}
 				}
 			});
-		};
+	}
+};

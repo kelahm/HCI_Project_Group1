@@ -241,12 +241,103 @@ var exceptions = ["Package Not Delivered", "Incorrect Address", "Security Delay"
 	"Business Closed Due to Strike", "Payment Recieved", "Future Delivery", "Release Signiture on File", "Not Attempted", "Shipment Refused"];
 var tiers = {"Critical": exceptions.slice(0, 3), "High Priority": exceptions.slice(3, 6), "Medium Priority": exceptions.slice(6, 9), "Low Priority": exceptions.slice(9)};
 
+var randomPPHData = [];
+function generateRandomPPHData() {
+	var data;
+	randomPPHData = [];
+	for (var area in drillDownInfo) {
+		data = {expected:[], actual:[]};
+		for(var i = 0; i < 24; i++) {
+			data.expected.push(Math.floor(Math.random()*1000));
+			data.actual.push(Math.floor(Math.random()*1000));
+		}
+		randomPPHData.push(data);
+	}
+}
+
+function updatePPHData() {
+	var region = document.getElementById("Region").value;
+	var district = document.getElementById("District").value;
+	var location = document.getElementById("Location").value;
+	if (region == "None Selected") region = false;
+	if (district == "None Selected") district = false;
+	if (location == "None Selected") location = false;
+	
+	console.log(randomPPHData);
+	
+	if (!region) DrillDownLabel = "Region";
+	else if (!district) DrillDownLabel = "District";
+	else if (!location) DrillDownLabel = "Location";
+	else DrillDownLabel = false;
+	
+	timeJustData = [];
+	for(var i = 0; i < 24; i++) {
+		timeJustData.push([0, 0]);
+	}
+	var area;
+	for (var d in drillDownInfo) {
+		area = drillDownInfo[d].split("\t");
+		if (!region || region == area[0]) {
+			if (!district || district == area[1]) {
+				if (!location || location == area[2]) {
+					for (var i = 0; i < 24; i++) {
+						timeJustData[i][0] += randomPPHData[d].expected[i];
+						timeJustData[i][1] += randomPPHData[d].actual[i];
+					}
+				}
+			}
+		}
+	}
+	
+	time = {};
+	for (var i = 1; i <= 12; i++) {
+		time[i+" a.m."] = timeJustData[i-1];
+	}
+	
+	for (var i = 1; i <= 12; i++) {
+		time[i+" p.m."] = timeJustData[11+i];
+	}
+
+	if (!DrillDownLabel) return;
+	place = {}
+	placeJustData = [];
+	
+	for (var d in drillDownInfo) {
+		area = drillDownInfo[d].split("\t");
+		if (!region) area = area[0];
+		else if (!district) {
+			if (area[0] != region) continue;
+			area = area[1];
+		} else {
+			if (area[0] != region || area[1] != district) continue;
+			area = area[2];
+		}
+		
+		if (!place.hasOwnProperty(area)) {
+			place[area] = [0, 0];
+			placeJustData.push([0, 0])
+		}
+			
+		for(var i = 0; i < 12; i++) {
+			place[area][0] += randomPPHData[d].expected[i];
+			place[area][1] += randomPPHData[d].actual[i];
+			
+			placeJustData[placeJustData.length-1][0] += randomPPHData[d].expected[i];
+			placeJustData[placeJustData.length-1][1] += randomPPHData[d].actual[i];
+		}
+	}
+	
+}
+
+
 function showTiersInMenu() {
 	var container;
 	for (var tier in tiers) {
+		if (document.getElementById(tier)) {
 		container = document.getElementById(tier);
 		for (var ex in tiers[tier]) {
 			container.innerHTML += '<label id="'+  tiers[tier][ex] +'" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">' + tiers[tier][ex] + '</label>';
+		}
 		}
 	}
 }
@@ -300,6 +391,7 @@ function formatDrillDownInfo() {
 }
 
 populateDrillDownMenu();
+generateRandomPPHData();
 populateDefaultDrillDownMenu();
 loadDates();
 generateDEXData();
