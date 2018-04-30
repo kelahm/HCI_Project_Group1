@@ -3,7 +3,6 @@
     color: white;
     padding-top: 5px;
     background-size:100% 100%;
-    margin-bottom: 0;
 }
 
 .display-2 {
@@ -13,16 +12,11 @@
     font-size: 250%;
     letter-spacing: 2px;
 }
-/*.col-md-4 {
+.col-md-4 {
     text-align: center;
     font-size: 100%;
     letter-spacing: 1px;
-    font-family: 'Helvetica Neue', 'Helvetica, Arial', 'sans-serif';
-    background-color: 'rgb(42, 2, 68)';
-}*/
-.dataTables_filter {
-    padding-right: 20px;
-    padding-top: -20px;
+    font-family: 'Helvetica Neue', 'Helvetica, Arial', 'sans-serif'
 }
 
 .table {
@@ -33,50 +27,10 @@
 .table tr:nth-child(even) {
     background-color: #e6e6ff;
 }
-#ColumnMenu {
-    font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-}
-#ColumnMenu h6 {
-    font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-}
-#ColumnMenu a:checked {
-    text-decoration: underline;
-}
 
-.dropup .dropdown-menu {
-    top: auto;
-    bottom: 100%;
-    right: -100%;
-    margin-bottom: .125rem;
-    max-height: 80vh;
-    overflow-y: auto;
+.icon {
+	position:absolute;
+	left: 2%;
+	top: 30px;
 }
-
-.selectWrapper {
-    width: 100%;
-    height: 5vh;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid #bbb;
-    border-radius: 2px;
-    background:#FFFFFF url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2211%22%20height%3D%2211%22%20viewBox%3D%220%200%2011%2011%22%3E%3Cpath%20d%3D%22M4.33%208.5L0%201L8.66%201z%22%20fill%3D%22%2300AEA9%22%2F%3E%3C%2Fsvg%3E') right 13px center no-repeat;
-}
-.selectWrapper select {
-        padding: 1vh 40px 0px 20px;
-        font-size: 3vh;
-        line-height: 18px;
-        width: 100%;
-        border: none;
-        box-shadow: none;
-        background: transparent;
-        background-image: none;
-        -webkit-appearance: none;
-        outline: none;
-        cursor: pointer;
-        -moz-appearance: none;
-        text-indent: 0.01px;
-        text-overflow: ellipsis;
-    }
 
