@@ -48,6 +48,8 @@ function generateData(data) {
 	
 	for(var label in data) {
 		labels.push(label);
+		
+		
 		if(data[label][0] > data[label][1]) {
 			plannedData.push(data[label][0]);
 			actualData.push(data[label][0]-data[label][1]);
@@ -61,8 +63,6 @@ function generateData(data) {
 		}
 		
 	}
-	
-	console.log(plannedData);
 	
 	return {
 		labels: labels,
