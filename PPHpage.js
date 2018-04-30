@@ -85,6 +85,7 @@ function generateData(data) {
 		window.onload = drawPPHCharts;
 var chart;		
 var placeChart;
+var hoveringOver = "";
 
 function drawPPHCharts() {
 	updatePPHData();
@@ -124,7 +125,6 @@ function drawPPHCharts() {
 				displayColors: false,
 				callbacks: {
 					label: function(tooltipItems, data) { 
-						console.log(tooltipItems);
 						return  ['Actual: ' + timeJustData[tooltipItems.index][0], "Planned: " + timeJustData[tooltipItems.index][1]];
 					},
 				}
@@ -140,13 +140,14 @@ function drawPPHCharts() {
 				type: 'bar',
 				data: chartData,
 				options: {
+					onClick: handleLocationClick,
 					responsive: true,
 					maintainAspectRatio: false,
 					tooltips: {
 						displayColors: false,
 						callbacks: {
 							label: function(tooltipItems, data) { 
-								console.log(tooltipItems);
+								hoveringOver = tooltipItems.xLabel;
 								return  ['Actual: ' + placeJustData[tooltipItems.index][0], "Planned: " + placeJustData[tooltipItems.index][1]];
 							},
 						}
@@ -175,3 +176,8 @@ function drawPPHCharts() {
 			});
 	}
 };
+
+function handleLocationClick(data) {
+	drillDownTo(hoveringOver);
+	drawPPHCharts();
+}

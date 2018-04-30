@@ -105,6 +105,20 @@ function updateDrillDown() {
 	populateDrillDownMenu(region, district, location);
 }
 
+function drillDownTo(next) {
+	var region = document.getElementById("Region").value;
+	var district = document.getElementById("District").value;
+	var location = document.getElementById("Location").value;
+	if (region == "None Selected") region = false;
+	if (district == "None Selected") district = false;
+	if (location == "None Selected") location = false;
+	
+	if (!region) region = next;
+	else if(!district) district = next;
+	else if(!location) location = next;
+	populateDrillDownMenu(region, district, location);
+}
+
 function updateDefaultDrillDown() {
 	var region = document.getElementById("DefaultRegion").value;
 	var district = document.getElementById("DefaultDistrict").value;
