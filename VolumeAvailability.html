@@ -129,7 +129,7 @@
     <thead>
         <tr><th>Division</th><th>Region</th><th>District</th><th>Location</th><th>Vehicle ID</th><th>Inbound/Outbound</th><th>ETA</th><th>Arrival Status</th><th>Early/Late(mins)</th></tr>
     </thead>
-    <tbody>
+    <tbody id="VolumeAvailabilityData">
      <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>ORHA</td><td>WMC121A</td><td>Inbound</td><td>11:04 PM</td><td>Early</td><td>21</td></tr>
      <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>BEDA</td><td>KJM123K</td><td>Inbound</td><td>6:36 AM</td><td>Early</td><td>9</td></tr>
      <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>NZWA</td><td>MCM234D</td><td>Outbound</td><td>2:02 AM</td><td>Late</td><td>8</td></tr>
@@ -247,51 +247,7 @@
 								 style="background-color:#4B1388; color:#fff; border:none">
 							<i class="fas fa-filter" style="font-size: 3em; color: white"></i>
 						</button>
-						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9">
-							<label style="font-size:3vmin">Region:</label>
-							<br/>
-							<div class="selectWrapper">
-								<select>
-									  <option value="none">None Selected</option>
-									  <option value="east">Eastern</option>
-									  <option value="west">Western</option>
-									  <option value="cent">Central</option>
-									  <option value="south">Southern</option>
-								</select>
-							</div>
-							<br/>
-						
-							<label style="font-size:3vmin">District:</label>
-							<br/>
-							<div class="selectWrapper">
-								<select>
-									  <option value="none">None Selected</option>
-									  <option value="bost">Bostonian</option>
-									  <option value="biga">Big Apple</option>
-									  <option value="cap">Capital</option>
-								</select>
-							</div>
-							<br/>
-						
-							<label style="font-size:3vmin">Location:</label>
-							<br/>
-							<div class="selectWrapper">
-								<select>
-									  <option value="none">None Selected</option>
-									  <option value="orha">ORHA</option>
-									  <option value="beda">BEDA</option>
-									  <option value="nzwa">NZWA</option>
-									  <option value="bvya">BVYA</option>
-									  <option value="pvda">PVDA</option>
-									  <option value="psma">PSMA</option>
-									  <option value="bgra">BGRA</option>
-									  <option value="auga">AUGA</option>
-									  <option value="owda">OWDA</option>
-									  <option value="cefa">CEFA</option>									  
-								</select>
-							</div>
-							<br/>
-							<p style="font-size:3vmin;">Manager:<br/><span style="font-size:2vmin">Manager Name</span></p>
+						<div id="drill-down" class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; padding:10px">
 						</div>
 					</div>
 				</div>
@@ -304,44 +260,7 @@
 						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%">
 							<!-- Drag and Drop Tiers -->
 							<label style="font-size:3vmin">Default Drilldown:</label>
-							<br/>
-							<div class="container">
-								<div class="row" style="width: 100%">
-									<div class="col" style="width: 33%"><label style="font-size:2vmin">Region:</label></div>
-									<div class="col" style="width: 33%">
-											<select>
-											  <option value="west">Western</option>
-											  <option value="east">Eastern</option>
-											  <option value="cent">Central</option>
-											  <option value="south">Southern</option>
-											</select>
-									</div>
-									<div class="col"  style="width: 33%"></div>
-								</div>
-								<div class="row" style="width: 100%">
-									<div class="col" style="width: 33%"><label style="font-size:2vmin">District:</label></div>
-									<div class="col" style="width: 33%">
-											<select>
-											  <option value="west">Western</option>
-											  <option value="east">Eastern</option>
-											  <option value="cent">Central</option>
-											  <option value="south">Southern</option>
-											</select>
-									</div>
-									<div class="col" style="width: 33%"></div>
-								</div>
-								<div class="row" style="width: 100%">
-									<div class="col" style="width: 33%"><label style="font-size:2vmin">Location:</label></div>
-									<div class="col" style="width: 33%">
-											<select>
-											  <option value="west">Western</option>
-											  <option value="east">Eastern</option>
-											  <option value="cent">Central</option>
-											  <option value="south">Southern</option>
-											</select>
-									</div>
-									<div class="col" style="width: 33%"></div>
-								</div>
+							<div id="default-drill-down">
 							</div>
                         </div>
                     </div>
@@ -349,6 +268,7 @@
             </div>
         </div>					
 	</nav>
+	<script src="menu.js"></script>
 	
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -368,9 +288,12 @@
 	$('.dropdown-menu').on('click', function(event) {
 		event.stopPropagation();
 	});
-	$('.selectpicker').selectpicker({
-		container: 'body'
+	
+	$('.dropdown-menu').on('change', function(event) {
+		updateDefaultDrillDown();
+		updateDrillDown();
 	});
+
 	$('body').on('click', function(event) {
 		var target = $(event.target);
 		if (target.parents('.bootstrap-select').length) {
@@ -378,6 +301,8 @@
 			$('.bootstrap-select.open').removeClass('open');
 		}
 	});	
+	
+  </script>	
 	
   </script>
     </body>
