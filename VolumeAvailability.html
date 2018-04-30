@@ -6,38 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="VASstyle.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+
+
+
     <script>
-      $(document).ready(function() {
-        var table = $('#example').DataTable( {
-            "paging": false,
-            "bInfo": false
+        $(document).ready(function() {
+            var table = $('#example').DataTable( {
+                        "scrollY": "230px",
+                        "paging": false,
+                        "bInfo": false,
+                        rowReorder: {
+                            selector: 'td:nth-child(3)'
+                            },
+                        responsive: true
+                        });
+ 
+        $('a.toggle-vis').on( 'click', function (e) {
+            e.preventDefault();
+ 
+            // Get the column API object
+            var column = table.column( $(this).attr('data-column') );
+ 
+            // Toggle the visibility
+            column.visible( ! column.visible() );
         } );
- 
-      $('a.toggle-vis').on( 'click', function (e) {
-        e.preventDefault();
- 
-        // Get the column API object
-        var column = table.column( $(this).attr('data-column') );
- 
-        // Toggle the visibility
-        column.visible( ! column.visible() );
-        } );
-      } );
-    </script>
-    <script>
-     $('#example').DataTable( {
-        responsive: true
-      } );
-    </script>
+    } );
+      </script>
     <script language="javascript" type="text/javascript">
     $(document).ready(function(){
         var earlyVal = 0;
@@ -71,7 +79,6 @@
         var earlyPercentage = ((earlyCount/minutes.length)*100).toPrecision(2);
         var latePercentage = ((lateCount/minutes.length)*100).toPrecision(2);
         var onTimePercentage = ((onTimeCount/minutes.length)*100).toPrecision(2);
-
         document.getElementById("early").innerHTML = earlyAverage;
         document.getElementById("late").innerHTML = lateAverage;
         document.getElementById("earlyperc").innerHTML = earlyPercentage;
@@ -81,39 +88,48 @@
     </script>
   </head>
   <body>
-        
-      <div class="jumbotron jumbotron-fluid" style="padding-bottom:10px;">
+    <div class="jumbotron jumbotron-fluid" style="padding-bottom:10px;">
 	  <div class="icon">
 		<a href="index.html"><img src='images/Back.svg' width=40 style="filter: brightness(170%);"></a>
 	</div>
-          <h3 class="display-2">Volume Availability Status</h3>
-          <br>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <span id="earlyperc"></span>% Early
-                        <br>
-                        <b>Average Early Time:</b><br><span id="early"></span> minutes</div>
-                    <div class="col-md-4"><span class="center"></span><span id="onTimeperc"></span>% On-Time </div>
-                    <div class="col-md-4">
-                        <span id="lateperc"></span>% Late
-                        <br>
-                        <b>Average Late Time:</b><br><span id="late"></span> minutes
-                    </div>
-                </div>
-              </div>    
-      </div>
-      
-   <div id="toggle-menu" style="padding-left:5px;height:0;">  
-     Hide/Show Columns:  
-    <a class="toggle-vis" data-column="0">Division</a> | <a class="toggle-vis" data-column="1">Region</a> | <a class="toggle-vis" data-column="2">District</a> | <a class="toggle-vis" data-column="3">Location</a>
+          <h3 class="display-2">Volume Availability Status</h3>  
+      </div> 
+     <div class="text-center row" style="background-color:rgb(42, 2, 68);color:#fff;">
+        <div class="text-center col-md-4 col-sm-4" style="border-right:5px solid white;">
+            <span id="earlyperc"></span>% Early
+            <br>
+            <b style="font-size:50%;">Average Early Time:</b><br><span id="early"></span><b style="font-size:50%;"> minutes</b> 
+         </div>
+        <div class="text-center col-md-4 col-sm-4" style="border-right:5px solid white;padding-top:10px;">
+            <span class="center"></span><span id="onTimeperc"></span>% <br>On-Time
+        </div>
+
+        <div class="text-center col-md-4 col-sm-4">
+            <span id="lateperc"></span>% Late
+            <br>
+            <b style="font-size:50%;">Average Late Time:</b><br><span id="late"></span><b style="font-size:50%;"> minutes</b>
+        </div>
+   </div>
+      <br>
+     
+   <div id="ColumnMenu" style="padding-left: 15px;">
+    <h6>Hide/Show Columns</h6>
+   
+    <a class="toggle-vis" data-column="0">Division</a> 
+    |
+    <a class="toggle-vis" data-column="1">Region</a>
+    |
+    <a class="toggle-vis" data-column="2">District</a> 
+    |
+    <a class="toggle-vis" data-column="3">Location</a>
+
     </div>
-      
-    <table id="example" class="table table-striped table-bordered" cellspacing="0" style="width:100%">
+    
+  <table id="example" class="table table-striped table-bordered nowrap" cellspacing="0" style="width:100%">
     <thead>
         <tr><th>Division</th><th>Region</th><th>District</th><th>Location</th><th>Vehicle ID</th><th>Inbound/Outbound</th><th>ETA</th><th>Arrival Status</th><th>Early/Late(mins)</th></tr>
     </thead>
-    <tbody id="VolumeAvailabilityData">
+    <tbody>
      <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>ORHA</td><td>WMC121A</td><td>Inbound</td><td>11:04 PM</td><td>Early</td><td>21</td></tr>
      <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>BEDA</td><td>KJM123K</td><td>Inbound</td><td>6:36 AM</td><td>Early</td><td>9</td></tr>
      <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>NZWA</td><td>MCM234D</td><td>Outbound</td><td>2:02 AM</td><td>Late</td><td>8</td></tr>
@@ -214,143 +230,147 @@
      <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>NCQA</td><td>00AHYWQ</td><td>outbound</td><td>1:20 PM</td><td>Late</td><td>28</td></tr>
      <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>AGSA</td><td>DIUM456</td><td>inbound</td><td>10:02 AM</td><td>Late</td><td>26</td></tr>
     </tbody>
-    <tfoot>
-        <tr><th>Division</th><th>Region</th><th>District</th><th>Location</th><th>Vehicle ID</th><th>Inbound/Outbound</th><th>ETA</th><th>Arrival Status</th><th>Early/Late(mins)</th></tr>
-    </tfoot>
+      <tfoot></tfoot>
 </table>
 
-            
-        
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-  </body>
-  
-  
-<!-- Footer -->
-<div style="height:8vh;position:fixed;bottom:0;width:100%;">
-	<style media="screen" type="text/css">
-		.dropup .dropdown-menu {
-			top: auto;
-			bottom: 100%;
-			right: -100%;
-			margin-bottom: .125rem;
-			max-height: 80vh;
-			overflow-y: auto;
-		}
-		
-		.selectWrapper {
-			width: 100%;
-			height: 5vh;
-			overflow: hidden;
-			position: relative;
-			border: 1px solid #bbb;
-			border-radius: 2px;
-			background:#FFFFFF url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2211%22%20height%3D%2211%22%20viewBox%3D%220%200%2011%2011%22%3E%3Cpath%20d%3D%22M4.33%208.5L0%201L8.66%201z%22%20fill%3D%22%2300AEA9%22%2F%3E%3C%2Fsvg%3E') right 13px center no-repeat;
-		}
 
-		.selectWrapper select {
-				padding: 1vh 40px 0px 20px;
-				font-size: 3vh;
-				line-height: 18px;
-				width: 100%;
-				border: none;
-				box-shadow: none;
-				background: transparent;
-				background-image: none;
-				-webkit-appearance: none;
-				outline: none;
-				cursor: pointer;
-				-moz-appearance: none;
-				text-indent: 0.01px;
-				text-overflow: ellipsis;
-			}
-    </style>
-	
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 
-	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:#4B1388; border-width:0;border-radius:0;height:100%;">
+
+  <div STYLE="height:4vh;position:fixed;bottom:0;width:100%;background-color:transparent">
+	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:#4B1388;">
 		<div class="container" style="min-width: 100%">
 			<div class="row" style="min-width: 100%">
 				<div class="col" style="min-width: 33%; text-align: center">
 					
 					<div class="btn-group dropup btn-group-sm">
-						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+						<button type="button"  aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
 								 style="background-color:#4B1388; color:#fff; border:none">
-							<i class="far fa-compass" style="font-size: 3em; color: white"></i>
+							<i class="fas fa-filter" style="font-size: 3em; color: white"></i>
 						</button>
-						<div id="drill-down" class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; padding:10px">
+						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9">
+							<label style="font-size:3vmin">Region:</label>
+							<br/>
+							<div class="selectWrapper">
+								<select>
+									  <option value="none">None Selected</option>
+									  <option value="east">Eastern</option>
+									  <option value="west">Western</option>
+									  <option value="cent">Central</option>
+									  <option value="south">Southern</option>
+								</select>
+							</div>
+							<br/>
+						
+							<label style="font-size:3vmin">District:</label>
+							<br/>
+							<div class="selectWrapper">
+								<select>
+									  <option value="none">None Selected</option>
+									  <option value="bost">Bostonian</option>
+									  <option value="biga">Big Apple</option>
+									  <option value="cap">Capital</option>
+								</select>
+							</div>
+							<br/>
+						
+							<label style="font-size:3vmin">Location:</label>
+							<br/>
+							<div class="selectWrapper">
+								<select>
+									  <option value="none">None Selected</option>
+									  <option value="orha">ORHA</option>
+									  <option value="beda">BEDA</option>
+									  <option value="nzwa">NZWA</option>
+									  <option value="bvya">BVYA</option>
+									  <option value="pvda">PVDA</option>
+									  <option value="psma">PSMA</option>
+									  <option value="bgra">BGRA</option>
+									  <option value="auga">AUGA</option>
+									  <option value="owda">OWDA</option>
+									  <option value="cefa">CEFA</option>									  
+								</select>
+							</div>
+							<br/>
+							<p style="font-size:3vmin;">Manager:<br/><span style="font-size:2vmin">Manager Name</span></p>
 						</div>
 					</div>
 				</div>
 				<div class="col" style="min-width: 33%; text-align: center">
 					<div class="btn-group dropup btn-group-sm">
-						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+						<button type="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
 								 style="background-color:#4B1388; color:#fff; border:none">
-							<i class="fas fa-user" style="font-size: 3em; color: white"></i></a>
+							<i class="fas fa-cog" style="font-size: 3em; color: white"></i>
 						</button>
 						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%">
 							<!-- Drag and Drop Tiers -->
 							<label style="font-size:3vmin">Default Drilldown:</label>
-							<div id="default-drill-down">
-							</div>
-							
-							<label style="font-size:3vmin">Default Date Range:</label>
 							<br/>
 							<div class="container">
 								<div class="row" style="width: 100%">
-									<div class="col-4"><label style="font-size:1.5vmin">Start Date:</label></div>
-									<div class="col-8">
-										<input id="sddate" type="date" style="min-width:10vw; font-size:2vmin"></input>
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">Region:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="west">Western</option>
+											  <option value="east">Eastern</option>
+											  <option value="cent">Central</option>
+											  <option value="south">Southern</option>
+											</select>
 									</div>
+									<div class="col"  style="width: 33%"></div>
 								</div>
 								<div class="row" style="width: 100%">
-									<div class="col-4"><label style="font-size:1.5vmin">Start Time:</label></div>
-									<div class="col-8">
-										<input id="sdtime" type="time" style="min-width:11vw; font-size:2vmin"></input>
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">District:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="west">Western</option>
+											  <option value="east">Eastern</option>
+											  <option value="cent">Central</option>
+											  <option value="south">Southern</option>
+											</select>
 									</div>
+									<div class="col" style="width: 33%"></div>
+								</div>
+								<div class="row" style="width: 100%">
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">Location:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="west">Western</option>
+											  <option value="east">Eastern</option>
+											  <option value="cent">Central</option>
+											  <option value="south">Southern</option>
+											</select>
+									</div>
+									<div class="col" style="width: 33%"></div>
 								</div>
 							</div>
-							
-							<div class="container">
-								<div class="row" style="width: 100%">
-									<div class="col-4"><label style="font-size:1.5vmin">End Date:</label></div>
-									<div class="col-8">
-										<input id="eddate" type="date" style="min-width:10vw; font-size:2vmin"></input>
-									</div>
-								</div>
-								<div class="row" style="width: 100%">
-									<div class="col-4"><label style="font-size:1.5vmin">End Time:</label></div>
-									<div class="col-8">
-										<input id="edtime" type="time" style="min-width:10vw; font-size:2vmin"></input>
-									</div>
-								</div>
-							</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>					
 	</nav>
-	<script src="menu.js"></script>
 	
-  
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
- 
- <script>
+      <script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+  
+  </div>
+  <script>
 	$('.dropdown-menu').on('click', function(event) {
 		event.stopPropagation();
 	});
-
-	$('.dropdown-menu').on('change', function(event) {
-		updateDefaultDrillDown();
-		updateDrillDown();
+	$('.selectpicker').selectpicker({
+		container: 'body'
 	});
-
 	$('body').on('click', function(event) {
 		var target = $(event.target);
 		if (target.parents('.bootstrap-select').length) {
@@ -359,8 +379,7 @@
 		}
 	});	
 	
-  </script>	
-	
   </script>
-</div>
+    </body>
+    
 </html>
