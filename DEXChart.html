@@ -39,24 +39,24 @@
   <div id="switch-container">
 	<table>
 		<tr>
-			<td class="notChosen" id="chooseMap" onclick="showMapView()"><a> Map View </a></td>
+			<td class="notChosen" id="chooseMap" onclick="showMapView()"><a> Grid View </a></td>
 			<td class="chosen" id="chooseChart" onclick="showChartView()"><a> Chart View </a></td>
 		</tr>
 	</table>
   </div>
-  
+
   <div id="chart-container">
-	
+
 	<div id="tierNames"	class="chartTierNames">
 		<script>
-			for(var i = 1; i <=6; i++) document.write("<div class='tiers'><h5>TIER " + i + "</h5><p id='tier" + i + "'></p></div>");
+			for(var i = 1; i <=6; i++) document.write("<div class='tiers'><h6>PRIORITY " + i + "</h6><p id='tier" + i + "'></p></div>");
 		</script>
 	</div>
-	
+
 	<div id="chart">
 	<canvas id="canvas"></canvas>
 	</div>
-	
+
 	<div id="map" style="display:none">
 		<canvas id="mapCanvas"></canvas>
 	</div>
@@ -74,7 +74,7 @@
 			max-height: 80vh;
 			overflow-y: auto;
 		}
-		
+
 		.selectWrapper {
 			width: 100%;
 			height: 5vh;
@@ -102,12 +102,12 @@
 				text-overflow: ellipsis;
 			}
     </style>
-	
+
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 
     <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  
+
 	<script>
 	function allowDrop(ev) {
 		ev.preventDefault();
@@ -124,14 +124,14 @@
 	}
 	</script>
 
-	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:#4B1388;">
+	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:rgb(50, 77, 92);">
 		<div class="container" style="min-width: 100%">
 			<div class="row" style="min-width: 100%">
 				<div class="col" style="min-width: 33%; text-align: center">
-					
+
 					<div class="btn-group dropup btn-group-sm">
 						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#4B1388; color:#fff; border:none">
+								 style="background-color:rgb(50, 77, 92); color:#fff; border:none">
 							<i class="far fa-compass" style="font-size: 3em; color: white"></i>
 						</button>
 						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9">
@@ -146,7 +146,7 @@
 								</select>
 							</div>
 							<br/>
-						
+
 							<label style="font-size:3vmin">District:</label>
 							<br/>
 							<div class="selectWrapper">
@@ -157,7 +157,7 @@
 											</select>
 							</div>
 							<br/>
-						
+
 							<label style="font-size:3vmin">Location:</label>
 							<br/>
 							<div class="selectWrapper">
@@ -172,7 +172,7 @@
 									  <option value="bgra">BGRA</option>
 									  <option value="auga">AUGA</option>
 									  <option value="owda">OWDA</option>
-									  <option value="cefa">CEFA</option>									  
+									  <option value="cefa">CEFA</option>
 								</select>
 							</div>
 							<br/>
@@ -183,7 +183,7 @@
 				<div class="col" style="min-width: 33%; text-align: center">
 					<div class="btn-group dropup btn-group-sm">
 						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#4B1388; color:#fff; border:none">
+								 style="background-color:rgb(50, 77, 92); color:#fff; border:none">
 							<i class="far fa-clock" style="font-size: 3em; color: white"></i>
 						</button>
 						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-100%; right:0%">
@@ -217,7 +217,7 @@
 				<div class="col" style="min-width: 33%; text-align: center">
 					<div class="btn-group dropup btn-group-sm">
 						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#4B1388; color:#fff; border:none">
+								 style="background-color:rgb(50, 77, 92); color:#fff; border:none">
 							<i class="fas fa-user" style="font-size: 3em; color: white"></i></a>
 						</button>
 						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%">
@@ -261,7 +261,7 @@
 									<div class="col" style="width: 33%"></div>
 								</div>
 							</div>
-							
+
 							<label style="font-size:3vmin">Default Date Range:</label>
 							<br/>
 							<div class="container">
@@ -278,7 +278,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="container">
 								<div class="row" style="width: 100%">
 									<div class="col-4"><label style="font-size:1.5vmin">End Date:</label></div>
@@ -293,7 +293,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 
 							<br/>
 							<label style="font-size:3vmin">Tier 1:</label>
@@ -321,8 +321,8 @@
 			</div>
 		</div>
 	</nav>
-	
-  
+
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -341,8 +341,8 @@
 			event.stopPropagation();
 			$('.bootstrap-select.open').removeClass('open');
 		}
-	});	
-	
+	});
+
   </script>
 </div>
 </body>

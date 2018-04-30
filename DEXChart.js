@@ -15,26 +15,26 @@ function showChartView() {
 	document.getElementById("chart").style.display = "block";
 	document.getElementById("tierNames").className = "chartTierNames";
 	document.getElementById("chart-container").style.display = "block";
-	
+
 	showChart();
 }
 
 function showMapView() {
 	document.getElementById("chooseMap").className = "chosen";
 	document.getElementById("chooseChart").className = "notChosen";
-	
+
 	document.getElementById("map").style.display= "block";
 	document.getElementById("chart").style.display= "none";
 	document.getElementById("tierNames").className = "mapTierNames";
 	document.getElementById("chart-container").style.display = "inline-flex";
-	
+
 	showMap();
 }
 
 var tooltipData = [];
 var tooltipLabels = [];
 function generateData() {
-	var color = "rgb(75, 19, 136)";
+	var color = "rgb(50, 77, 92)";
 	var gridColor = "rgba(0, 0, 0, 0.1)";
 	var labels = [];
 	var colors = [];
@@ -42,7 +42,7 @@ function generateData() {
 	var gridlines = ["rgba(0, 0, 0, 0.1)"];
 	var tierTotal;
 	var tierNum = 1;
-	
+
 	for(var tier in dexData) {
 		var label = JSON.parse(tier);
 		tierTotal = 0;
@@ -51,20 +51,20 @@ function generateData() {
 			data.push(dexData[tier][i]);
 			colors.push(color);
 			if (i > 0) gridlines.push(gridColor);
-			
+
 			tierTotal += dexData[tier][i];
 			total += dexData[tier][i];
 		}
 		gridlines.push('black');
-		
-		document.getElementById("tier"+tierNum).innerHTML = "Total: " + tierTotal;
+
+		document.getElementById("tier"+tierNum).innerHTML = tierTotal;
 		tierNum++;
-		
-		if(color == "rgb(75, 19, 136)") color = "rgb(234, 98, 20)";
-		else color = "rgb(75, 19, 136)";
-		
+
+		if(color == "rgb(50, 77, 92)") color = "rgb(227, 123, 64)";
+		else color = "rgb(50, 77, 92)";
+
 	}
-	
+
 	return {data: {
 			labels: labels,
 			datasets: [{
@@ -74,7 +74,7 @@ function generateData() {
 				borderWidth: 1,
 				data: data
 			}]
-		}, 
+		},
 		gridColors: gridlines};
 }
 
@@ -83,44 +83,44 @@ function generateMapData() {
 	var tierNum = 1;
 	var datasets = [];
 	var data = [[], [], []];
-	var color = ['rgb(42, 2, 68)', 'rgb(102, 54, 132)', 'rgb(205, 167, 229)'];
+	var color = ['rgb(30, 40, 71)', 'rgb(50, 77, 92)', 'rgb(100, 173, 181)'];
 	var datasetLabels = [[], [], []];
 	tooltipLabels = [[], [], []];
 	tooltipData = [[], [], []];
-	
+
 	for(var tier in dexData) {
 		var label = JSON.parse(tier);
 		tierTotal = 0;
-		
+
 		for (var i = 0; i < label.length; i++) {
 			data[i].push(dexData[tier][i]);
 			tooltipLabels[i].push(label[i]);
 			tooltipData[i].push(dexData[tier][i]);
-			
+
 			tierTotal += dexData[tier][i];
 			total += dexData[tier][i];
-			
+
 		}
 
 		document.getElementById("tier"+tierNum).innerHTML = "Total: " + tierTotal;
 		labels.push("TIER " + tierNum);
 		tierNum++;
 	}
-	
+
 	var max = 0;
 	var total = 0;
 	for(var i = 0; i < 6; i++) {
 		total = data[0][i] + data[1][i] + data[2][i];
 		if (total > max) max = total;
 	}
-	
+
 	for(var i = 0; i < 6; i++) {
 		total = data[0][i] + data[1][i] + data[2][i];
 		data[0][i] *= max / total;
 		data[1][i] *= max / total;
 		data[2][i] *= max / total;
 	}
-	
+
 			datasets.push({
 				label: datasetLabels[0],
 				borderWidth: 5,
@@ -128,7 +128,7 @@ function generateMapData() {
 				backgroundColor:  color[0],
 				borderColor:  'white'
 			});
-			
+
 			datasets.push({
 				label: datasetLabels[1],
 				borderWidth: 5,
@@ -136,7 +136,7 @@ function generateMapData() {
 				backgroundColor:  color[1],
 				borderColor:  'white'
 			});
-			
+
 			datasets.push({
 				label: datasetLabels[2],
 				borderWidth: 5,
@@ -144,14 +144,15 @@ function generateMapData() {
 				backgroundColor:  color[2],
 				borderColor:  'white'
 			});
-	
-			
-	
+
+
+
 	return {data: {
 			labels: labels,
 			datasets: datasets
 		}};
 }
+
 
 function showChart() {
 			var ctx ;
@@ -181,8 +182,8 @@ function showChart() {
 						xAxes: [{
 							ticks: {
 								autoSkip: false,
-								maxRotation: 90,
-								minRotation: 90,
+								maxRotation: 45,
+								minRotation: 45,
 							},
 							gridLines: {
 								color: chartData.gridColors
@@ -193,7 +194,7 @@ function showChart() {
 			});
 			console.log(chart);
 		};
-		
+
 function showMap() {
 			var ctx ;
 			var chartData = generateMapData();
@@ -210,7 +211,7 @@ function showMap() {
 					tooltips: {
 						displayColors: false,
 						callbacks: {
-							label: function(tooltipItems, data) { 
+							label: function(tooltipItems, data) {
 								return tooltipLabels[tooltipItems.datasetIndex][tooltipItems.index] + ' : ' + tooltipData[tooltipItems.datasetIndex][tooltipItems.index];
 							}
 						},
@@ -222,7 +223,7 @@ function showMap() {
 					scales: {
 						xAxes: [{
 							stacked: true,
-							display: false  
+							display: false
 						}],
 						yAxes: [{
 							categoryPercentage: 1.0,
@@ -248,22 +249,22 @@ function showMap() {
 					else ctx.fillStyle = '#000';
 					ctx.font = "15pt Verdana";
 					var label = tooltipLabels[d][i];
-					
+
 					var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-					
+
 					var yPos = model.y + 8;
 					var xPos = model.x - ctx.measureText(label).width - padding;
-					
+
 					if (d > 0) {
 						var model2 = chart.data.datasets[d-1]._meta[Object.keys(chart.data.datasets[d-1]._meta)[0]].data[i]._model;
 						if (xPos-padding > model2.x) ctx.fillText(label, xPos, yPos);
 					} else {
 						if (xPos > padding) ctx.fillText(label, xPos, yPos);
 					}
-					
-					
+
+
 				}
-            }               
+            }
         }
        }]
 	});
