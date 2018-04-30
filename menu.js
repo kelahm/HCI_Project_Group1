@@ -19,7 +19,7 @@ function createDropDownInput(label, options, selected, parentDiv, small) {
 		wrapper.innerHTML += "<label style='margin-right:10px;width:35%;'>" + label + "</label>";
 		wrapper.style.display = "inline-flex";
 		wrapper.style.marginLeft = "10px";
-		wrapper.style.marginTop = "5px";
+		wrapper.style.marginTop = "1px";
 		wrapper.style.width = "100%";
 	}
 	parentDiv.appendChild(wrapper);
