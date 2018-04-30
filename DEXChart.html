@@ -54,6 +54,7 @@
 	</div>
 
 	<div id="chart">
+	<canvas id="canvas"></canvas>
 	</div>
 
 	<div id="map" style="display:none">
@@ -119,33 +120,7 @@
 	function drop(ev) {
 		ev.preventDefault();
 		var data = ev.dataTransfer.getData("text");
-		var newTierDiv = ev.target;
-
-
-		if (Object.keys(tiers).indexOf(newTierDiv.id) < 0)
-			newTierDiv = newTierDiv.parentElement;
-
-		newTierDiv.appendChild(document.getElementById(data));
-
-		var newTier = newTierDiv.id;
-		for(var tier in tiers) {
-			if (tier == newTier) {
-				if (tiers[tier].indexOf(data) < 0) {
-					tiers[tier].push(data);
-				}
-				continue;
-			}
-			for (var i in tiers[tier]) {
-				if(tiers[tier][i] == data) {
-					tiers[tier].splice(i, 1);
-				}
-			}
-		}
-
-		if (document.getElementById("chooseChart").className == "chosen")
-			showChart();
-		else
-			showMap();
+		ev.target.appendChild(document.getElementById(data));
 	}
 	</script>
 
@@ -159,7 +134,6 @@
 								 style="background-color:rgb(50, 77, 92); color:#fff; border:none">
 							<i class="far fa-compass" style="font-size: 3em; color: white"></i>
 						</button>
-<<<<<<< HEAD
 						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9">
 							<label style="font-size:3vmin">Region:</label>
 							<br/>
@@ -203,9 +177,6 @@
 							</div>
 							<br/>
 							<p style="font-size:3vmin;">Manager:<br/><span style="font-size:2vmin">Shelly Garner</span></p>
-=======
-						<div id="drill-down" class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; padding:10px">
->>>>>>> origin/master
 						</div>
 					</div>
 				</div>
@@ -215,15 +186,15 @@
 								 style="background-color:rgb(50, 77, 92); color:#fff; border:none">
 							<i class="far fa-clock" style="font-size: 3em; color: white"></i>
 						</button>
-						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-100%; right:0%; padding: 10px;">
+						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-100%; right:0%">
 							<label style="font-size:3vmin">Start Time & Date:</label>
 							<br/>
 							<form>
 								<div style="padding:2px">
-									<input id="sdate" type="date">
+									<input id="date" type="date">
 								</div>
 								<div style="padding:2px">
-									<input id="stime" type="time">
+									<input id="time" type="time">
 									<label>(CST)</label>
 								</div>
 							</form>
@@ -233,10 +204,10 @@
 							<br/>
 							<form>
 								<div style="padding:2px">
-									<input id="edate" type="date">
+									<input id="date" type="date">
 								</div>
 								<div style="padding:2px">
-									<input id="etime" type="time">
+									<input id="time" type="time">
 									<label>(CST)</label>
 								</div>
 							</form>
@@ -249,11 +220,46 @@
 								 style="background-color:rgb(50, 77, 92); color:#fff; border:none">
 							<i class="fas fa-user" style="font-size: 3em; color: white"></i></a>
 						</button>
-						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%; padding: 10px;">
+						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%">
 							<!-- Drag and Drop Tiers -->
 							<label style="font-size:3vmin">Default Drilldown:</label>
 							<br/>
-							<div id="default-drill-down">
+							<div class="container">
+								<div class="row" style="width: 100%">
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">Region:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="west" selected="selected">Western</option>
+											  <option value="east">Eastern</option>
+											  <option value="cent">Central</option>
+											  <option value="south">Southern</option>
+											</select>
+									</div>
+									<div class="col"  style="width: 33%"></div>
+								</div>
+								<div class="row" style="width: 100%">
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">District:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="canyon" selected="selected">Canyon</option>
+											  <option value="mountain">Mountain</option>
+											  <option value="pacific">Pacific Northwest</option>
+											</select>
+									</div>
+									<div class="col" style="width: 33%"></div>
+								</div>
+								<div class="row" style="width: 100%">
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">Location:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="WBTFA" selected="selected">WBTFA</option>
+											  <option value="east">MSCA</option>
+											  <option value="cent">SGUA</option>
+											  <option value="south">OGDA</option>
+											</select>
+									</div>
+									<div class="col" style="width: 33%"></div>
+								</div>
 							</div>
 
 							<label style="font-size:3vmin">Default Date Range:</label>
@@ -262,7 +268,7 @@
 								<div class="row" style="width: 100%">
 									<div class="col-4"><label style="font-size:1.5vmin">Start Date:</label></div>
 									<div class="col-8">
-										<input id="sddate" type="date" style="min-width:10vw; font-size:2vmin" value=></input>
+										<input id="sddate" type="date" style="min-width:10vw; font-size:2vmin"></input>
 									</div>
 								</div>
 								<div class="row" style="width: 100%">
@@ -287,49 +293,46 @@
 									</div>
 								</div>
 							</div>
-<<<<<<< HEAD
 
 
-=======
-
->>>>>>> origin/master
 							<br/>
-							<label style="font-size:3vmin">Critical:</label>
-							<div id="Critical" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
+							<label style="font-size:3vmin">Tier 1:</label>
+							<div ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
+								<label id="drag1" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#1-Lost</label>
+								<label id="drag2" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#3-Stolen</label>
+								<label id="drag7" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#4-Broken</label>
 							</div>
-							<label style="font-size:3vmin">High Priority:</label>
-							<div id="High Priority" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
+							<label style="font-size:3vmin">Tier 2:</label>
+							<div ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
+								<label id="drag35" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#10-Weather</label>
+								<label id="drag34" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#8-NoSign</label>
+								<label id="drag33" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#2-Absent</label>
+								<label id="drag32" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#7-NoFind</label>
+								<label id="drag31" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#6-Late</label>
 							</div>
-							<label style="font-size:3vmin">Meduim Priority:</label>
-							<div id="Medium Priority" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
+							<label style="font-size:3vmin">Tier 3:</label>
+							<div ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
+								<label id="drag28" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#5-OnPorch</label>
+								<label id="drag27" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#9-Destroyed</label>
 							</div>
-							<label style="font-size:3vmin">Low Priority:</label>
-							<div id="Low Priority" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
-							<div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</nav>
-<<<<<<< HEAD
 
 
-=======
-	<script src="menu.js"></script>
-
->>>>>>> origin/master
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script>
 	$('.dropdown-menu').on('click', function(event) {
 		event.stopPropagation();
 	});
 
-	$('.dropdown-menu').on('change', function(event) {
-		updateDefaultDrillDown();
-		updateDrillDown();
-		showChartView();
+	$('.selectpicker').selectpicker({
+		container: 'body'
 	});
 
 	$('body').on('click', function(event) {
