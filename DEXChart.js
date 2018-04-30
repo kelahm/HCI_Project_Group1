@@ -68,7 +68,7 @@ function generateData() {
 	return {data: {
 			labels: labels,
 			datasets: [{
-				label: 'Exception Count:',
+				label: 'Exception Count',
 				backgroundColor:  colors,
 				borderColor:  colors,
 				borderWidth: 1,
