@@ -238,8 +238,18 @@ var drillDownInfo = ["Eastern	Bostonian	ORHA	Reginald Cruz",
 "Southern	Delta	JBRA	Donna Gardner"];
 
 var exceptions = ["Package Not Delivered", "Incorrect Address", "Security Delay", "Refused By Recipient", "Not In/Business Closed", "Damaged- Not Complete", "Damaged- Complete", "C O D Delivery", "Sorted to Wrong Route",
-	"Business Closed Due to Strike", "Payment Recieved", "Future Delivery", "Release Signiture on File", "Delivered to Wrong Address", "Not Attempted", "Shipment Refused", "Security Delay", "Wrong Route"];
+	"Business Closed Due to Strike", "Payment Recieved", "Future Delivery", "Release Signiture on File", "Not Attempted", "Shipment Refused"];
 var tiers = {"Critical": exceptions.slice(0, 3), "High Priority": exceptions.slice(3, 6), "Medium Priority": exceptions.slice(6, 9), "Low Priority": exceptions.slice(9)};
+
+function showTiersInMenu() {
+	var container;
+	for (var tier in tiers) {
+		container = document.getElementById(tier);
+		for (var ex in tiers[tier]) {
+			container.innerHTML += '<label id="'+  tiers[tier][ex] +'" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">' + tiers[tier][ex] + '</label>';
+		}
+	}
+}
 
 var dexData = [];
 function generateDEXData() {
@@ -293,3 +303,4 @@ populateDrillDownMenu();
 populateDefaultDrillDownMenu();
 loadDates();
 generateDEXData();
+showTiersInMenu();

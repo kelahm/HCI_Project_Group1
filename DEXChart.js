@@ -133,7 +133,6 @@ function generateMapData() {
 			
 			total += data[j][i];
 		}
-		console.log(total);
 		
 		for (var j = 0; j < maxLength; j++) {
 			if (i >= data[j].length) break;
@@ -200,11 +199,16 @@ function showChart() {
 			});
 		};
 		
+var mapChart;
 function showMap() {
 			var ctx ;
 			var chartData = generateMapData();
+
+			if (mapChart) {
+				mapChart.destroy();
+			}
 			ctx = document.getElementById('mapCanvas').getContext('2d');
-			var chart = new Chart(ctx, {
+			mapChart = new Chart(ctx, {
 				type: 'horizontalBar',
 				data: chartData.data,
 				options: {
@@ -259,7 +263,7 @@ function showMap() {
 					var yPos = model.y + 8;
 					var xPos = model.x - ctx.measureText(label).width - padding;
 					
-					if (d > 0) {
+					if (d > 0 && chart.data.datasets[d-1]._meta[Object.keys(chart.data.datasets[d-1]._meta)[0]].data[i]) {
 						var model2 = chart.data.datasets[d-1]._meta[Object.keys(chart.data.datasets[d-1]._meta)[0]].data[i]._model;
 						if (xPos-padding > model2.x) ctx.fillText(label, xPos, yPos);
 					} else {

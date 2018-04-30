@@ -116,7 +116,33 @@
 	function drop(ev) {
 		ev.preventDefault();
 		var data = ev.dataTransfer.getData("text");
-		ev.target.appendChild(document.getElementById(data));
+		var newTierDiv = ev.target;
+		
+
+		if (Object.keys(tiers).indexOf(newTierDiv.id) < 0)
+			newTierDiv = newTierDiv.parentElement;
+			
+		newTierDiv.appendChild(document.getElementById(data));
+		
+		var newTier = newTierDiv.id;
+		for(var tier in tiers) {
+			if (tier == newTier) {
+				if (tiers[tier].indexOf(data) < 0) {
+					tiers[tier].push(data);
+				} 
+				continue;
+			}
+			for (var i in tiers[tier]) {
+				if(tiers[tier][i] == data) {
+					tiers[tier].splice(i, 1);
+				}
+			}
+		}
+		
+		if (document.getElementById("chooseChart").className == "chosen")
+			showChart();
+		else
+			showMap();
 	}
 	</script>
 
@@ -212,28 +238,20 @@
 									</div>
 								</div>
 							</div>
-							
-
+						
 							<br/>
-							<label style="font-size:3vmin">Tier 1:</label>
-							<div ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
-								<label id="drag1" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#1-Lost</label>
-								<label id="drag2" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#3-Stolen</label>
-								<label id="drag7" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#4-Broken</label>
+							<label style="font-size:3vmin">Critical:</label>
+							<div id="Critical" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
 							</div>
-							<label style="font-size:3vmin">Tier 2:</label>
-							<div ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
-								<label id="drag35" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#10-Weather</label>
-								<label id="drag34" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#8-NoSign</label>
-								<label id="drag33" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#2-Absent</label>
-								<label id="drag32" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#7-NoFind</label>
-								<label id="drag31" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#6-Late</label>
+							<label style="font-size:3vmin">High Priority:</label>
+							<div id="High Priority" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
 							</div>
-							<label style="font-size:3vmin">Tier 3:</label>
-							<div ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
-								<label id="drag28" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#5-OnPorch</label>
-								<label id="drag27" class="noDrop" draggable="true" ondragstart="drag(event)" style="background-color: white; border: 1px solid; margin: 2px">#9-Destroyed</label>
+							<label style="font-size:3vmin">Meduim Priority:</label>
+							<div id="Medium Priority" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
 							</div>
+							<label style="font-size:3vmin">Low Priority:</label>
+							<div id="Low Priority" ondrop="drop(event)" ondragover="allowDrop(event)" style="min-width:18vw; min-height:10vh; border: 2px solid; margin: 3px">
+							<div>
 						</div>
 					</div>
 				</div>
