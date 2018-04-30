@@ -378,15 +378,18 @@ function makeTimeBuckets() {
 		while (hours > 0 && !last) {
 			if (hours < 0) last = true;
 			if (hours == 0) break;
-			buckets.push(start+description+" "+ bucketDate.getMonth() + "/" + bucketDate.getDate());
+			buckets.push(start+description+" "+ (bucketDate.getMonth()+1) + "/" + bucketDate.getDate());
 			start += bucketSize;
 			
 			while (start > 12) {
 				start -= 12;
 				if (description == " a.m.") description = " p.m.";
-				else description = " a.m.";
+				else {
+					description = " a.m.";
+					bucketDate.setDate(bucketDate.getDate()+1);
+				}
 				
-				bucketDate.setDate(bucketDate.getDate()+1);
+				
 			}
 			
 			hours -= bucketSize;
