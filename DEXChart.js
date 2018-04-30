@@ -30,7 +30,7 @@ function showTitles() {
 	var percent;
 	for (var tier in tiers) {
 		percent = Math.floor(tiers[tier].length / exceptions.length * 100);
-		container.innerHTML += "<div class='tiers' style='width:" +percent+ "%'><h5>" + tier + "</h5><p id='" + tier + "'></p></div>"
+		container.innerHTML += "<div class='tiers' style='width:" +percent+ "%;font-size:20px'><h5>" + tier + "</h5><p id='" + tier + "' style='font-size:10px;text-align:center'></p></div>"
 	}
 }
 
@@ -187,8 +187,6 @@ function showChart() {
 						xAxes: [{
 							ticks: {
 								autoSkip: false,
-								maxRotation: 90,
-								minRotation: 90,
 							},
 							gridLines: {
 								color: chartData.gridColors

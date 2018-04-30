@@ -19,7 +19,7 @@ canvas {
 	display:inline-flex;
 	justify-content: space-around;
 	width: 83%;
-	margin-left: 9%;
+	margin-left: 13%;
 	font-family: Verdana, 'Geneva', sans-serif;
 	margin-top: 2em;
 }
@@ -38,6 +38,8 @@ canvas {
 .mapTierNames div {
 	padding: 1.8vh;
 	text-align: right;
+	margin-bottom: 3vh;
+	margin-top: 2vh;
 }
 
 .tierNames {
@@ -110,13 +112,13 @@ button {
 	min-width: 88%;
 }
 
-#chooseMap {
+#chooseChart {
 	border-top-left-radius: 10%;
 	border-bottom-left-radius: 10%;
 	
 }
 
-#chooseChart {
+#chooseMap {
 	border-top-right-radius: 10%;
 	border-bottom-right-radius: 10%;
 }
