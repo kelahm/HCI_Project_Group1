@@ -303,7 +303,6 @@ function updatePPHData() {
 		}
 	}
 	
-	
 	time = {};
 	for (var i = 0; i < buckets.length; i++) {
 		time[buckets[i]] = timeJustData[i];
@@ -367,6 +366,7 @@ function makeTimeBuckets() {
 			buckets.push(hourWord);
 		}
 	} else {
+		var bucketDate = new Date(sdate);
 		var bucketSize = Math.ceil(hours / 24);
 		var start = parseInt(stime.substring(0, 2));
 		var description;
@@ -378,19 +378,21 @@ function makeTimeBuckets() {
 		while (hours > 0 && !last) {
 			if (hours < 0) last = true;
 			if (hours == 0) break;
-			buckets.push(start+description);
+			buckets.push(start+description+" "+ bucketDate.getMonth() + "/" + bucketDate.getDate());
 			start += bucketSize;
 			
 			while (start > 12) {
 				start -= 12;
 				if (description == " a.m.") description = " p.m.";
 				else description = " a.m.";
+				
+				bucketDate.setDate(bucketDate.getDate()+1);
 			}
 			
 			hours -= bucketSize;
 		}
 	}
-	console.log("Length " + buckets.length + " Hours " + hours + " Size " + bucketSize);
+	console.log(buckets);
 	
 	return buckets;
 }
