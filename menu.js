@@ -277,15 +277,15 @@ function updatePPHData() {
 	if (district == "None Selected") district = false;
 	if (location == "None Selected") location = false;
 	
-	console.log(randomPPHData);
-	
+	var buckets = makeTimeBuckets();
+
 	if (!region) DrillDownLabel = "Region";
 	else if (!district) DrillDownLabel = "District";
 	else if (!location) DrillDownLabel = "Location";
 	else DrillDownLabel = false;
 	
 	timeJustData = [];
-	for(var i = 0; i < 24; i++) {
+	for(var i = 0; i < buckets.length; i++) {
 		timeJustData.push([0, 0]);
 	}
 	var area;
@@ -294,7 +294,7 @@ function updatePPHData() {
 		if (!region || region == area[0]) {
 			if (!district || district == area[1]) {
 				if (!location || location == area[2]) {
-					for (var i = 0; i < 24; i++) {
+					for (var i = 0; i < buckets.length; i++) {
 						timeJustData[i][0] += randomPPHData[d].expected[i];
 						timeJustData[i][1] += randomPPHData[d].actual[i];
 					}
@@ -304,12 +304,8 @@ function updatePPHData() {
 	}
 	
 	time = {};
-	for (var i = 1; i <= 12; i++) {
-		time[i+" a.m."] = timeJustData[i-1];
-	}
-	
-	for (var i = 1; i <= 12; i++) {
-		time[i+" p.m."] = timeJustData[11+i];
+	for (var i = 0; i < buckets.length; i++) {
+		time[buckets[i]] = timeJustData[i];
 	}
 
 	if (!DrillDownLabel) return;
@@ -332,7 +328,7 @@ function updatePPHData() {
 			placeJustData.push([0, 0])
 		}
 			
-		for(var i = 0; i < 12; i++) {
+		for(var i = 0; i < 24; i++) {
 			place[area][0] += randomPPHData[d].expected[i];
 			place[area][1] += randomPPHData[d].actual[i];
 			
@@ -341,6 +337,67 @@ function updatePPHData() {
 		}
 	}
 	
+}
+
+function makeTimeBuckets() {
+	var buckets = [];
+	
+	var sdate = document.getElementById("sdate").value;
+	var stime = document.getElementById("stime").value;
+	var edate = document.getElementById("edate").value;
+	var etime = document.getElementById("etime").value;
+	
+	var start = new Date(sdate + "T" + stime);
+	var end = new Date(edate + "T" + etime);
+	var hours = (end-start) /1000 / 60 / 60;
+	
+	console.log(hours);
+	if (hours <= 24) {
+		var hourWord;
+		for (var i = parseInt(stime.substring(0, 2)); i <= parseInt(stime.substring(0, 2)) + hours; i++) {
+			hourWord = i;
+			if (hourWord > 24) hourWord -= 24;
+			if (hourWord <=12) hourWord += " a.m.";
+			else {
+				hourWord -=12;
+				hourWord += " p.m."
+			}
+			
+			buckets.push(hourWord);
+		}
+	} else {
+		var bucketDate = new Date(sdate);
+		var bucketSize = Math.ceil(hours / 24);
+		var start = parseInt(stime.substring(0, 2));
+		var description;
+		
+		if (start < 12) description = " a.m.";
+		else description = " p.m.";
+		
+		var last = false;
+		while (hours > 0 && !last) {
+			if (hours < 0) last = true;
+			if (hours == 0) break;
+			buckets.push(start+description+" "+ (bucketDate.getMonth()+1) + "/" + bucketDate.getDate());
+			start += bucketSize;
+			
+			while (start > 12) {
+				start -= 12;
+				if (description == " a.m.") description = " p.m.";
+				else {
+					description = " a.m.";
+					bucketDate.setDate(bucketDate.getDate()+1);
+				}
+				
+				
+			}
+			
+			hours -= bucketSize;
+		}
+	}
+	console.log(buckets);
+	
+	return buckets;
 }
 
 
