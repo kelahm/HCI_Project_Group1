@@ -91,7 +91,7 @@ function generateMapData() {
 	var maxLength = 0;
 	var maxTotal = 0;
 	tooltipData = [];
-	
+	tooltipLabels = [];
 	for(var tier in tiers) {
 		var label = tiers[tier];
 		tierTotal = 0;
@@ -125,6 +125,8 @@ function generateMapData() {
 		labels.push(tier);
 		tierNum++;
 	}
+	
+	console.log(tooltipLabels);
 
 	var total = 0;
 	for(var i = 0; i < Object.keys(tiers).length; i++) {
