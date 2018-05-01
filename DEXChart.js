@@ -36,6 +36,9 @@ function showTitles() {
 
 var tooltipData = [];
 var tooltipLabels = [];
+
+var animationDuration = 1000;
+
 function generateData() {
 	var color = "rgb(75, 19, 136)";
 	var gridColor = "rgba(0, 0, 0, 0.1)";
@@ -170,6 +173,9 @@ function showChart() {
 				type: 'bar',
 				data: chartData.data,
 				options: {
+					animation: {
+						duration: animationDuration
+					},
 					responsive: true,
 					maintainAspectRatio: false,
 					legend: {
@@ -198,6 +204,7 @@ function showChart() {
 					}
 				}
 			});
+			animationDuration = 0;
 		};
 		
 		Chart.plugins.register({
@@ -247,6 +254,9 @@ function showMap() {
 				type: 'horizontalBar',
 				data: chartData.data,
 				options: {
+					animation: {
+						duration: animationDuration
+					},
 					responsive: true,
 					maintainAspectRatio: false,
 					legend: {
@@ -311,9 +321,16 @@ function showMap() {
         }
        }]
 	});
+	animationDuration = 0;
 };
 
 window.onload = function() {
 	showTitles();
 	showChart();
+	setInterval(function() {
+		updateTime(function() {
+			if (document.getElementById("chooseChart").className == "chosen")
+				showChart();
+		});
+	}, 1000);
 }

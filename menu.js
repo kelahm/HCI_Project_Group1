@@ -502,7 +502,7 @@ function getDEXData(exception) {
 		if(region == "None Selected" || region == line[0]) {
 			if (district == "None Selected" || district == line[1]) {
 				if (location == "None Selected" || location == line[2]) {
-					total += dexData[l][exceptions.indexOf(exception)];
+					total += dexData[l][exceptions.indexOf(exception)] + Math.floor(Math.random() * 2);
 				}
 			}
 		}

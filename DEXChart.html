@@ -268,9 +268,16 @@
 	});
 	
 	$('.dropdown-menu').on('change', function(event) {
+	    animationDuration = 1000;
+		if(event.originalEvent.path[0].id == "edate" || event.originalEvent.path[0].id == "etime") liveData = false;
+		handleDateChange();
+		
 		updateDefaultDrillDown();
 		updateDrillDown();
-		showChartView();
+		if (document.getElementById("chooseChart").className == "chosen")
+			showChart();
+		else
+			showMap();
 	});
 
 	$('body').on('click', function(event) {
