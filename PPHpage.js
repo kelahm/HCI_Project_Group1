@@ -52,13 +52,13 @@ function generateData(data) {
 		if(data[label][0] > data[label][1]) {
 			plannedData.push(data[label][0]);
 			actualData.push(data[label][0]-data[label][1]);
-			actualColors.push( "rgb(75, 19, 136)");
-			plannedColors.push('rgb(234, 98, 20)');
+			actualColors.push( "#006699");
+			plannedColors.push('#4d0000');
 		} else {
 			plannedData.push(data[label][1]);
 			actualData.push(data[label][1]-data[label][0]);
-			plannedColors.push( "rgb(75, 19, 136)");
-			actualColors.push('rgb(234, 98, 20)');
+			plannedColors.push( "#006699");
+			actualColors.push('#4d0000');
 		}
 		
 	}

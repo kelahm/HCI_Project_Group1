@@ -1,6 +1,6 @@
 
 .jumbotron {
-    background-color: rgb(50,77,92);
+    background-color: #006699;
     color: white;
     padding-top: 5px;
 /*    background-size:100% 100%;*/
@@ -39,7 +39,7 @@
   }
 
 .table tr:nth-child(even) {
-    background-color: rgb(242, 193, 164);
+    background-color: #ffcccc;
 }
 #ColumnMenu {
     font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;

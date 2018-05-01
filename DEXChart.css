@@ -70,12 +70,12 @@ canvas {
 
 button {
 	padding: 3px;
-	background-color: rgb(255, 168, 70);
+	background-color: #006699;
 	text-align: center;
 }
 
 .chosen {
-	background-color: rgb(255, 168, 70);
+	background-color: #006699;
 	padding: 10px;
 	font-weight: bold;
 }
@@ -88,7 +88,7 @@ button {
 }
 
 .notChosen:hover {
-	background-color: rgb(255, 168, 70);
+	background-color: #006699;
 	color: black;
 	font-weight: bold;
 }
@@ -155,8 +155,7 @@ html,body {
   width:100%;
   height:50px;
   box-shadow: 0 0 3px 3px lightGray;
-  background-color:#4B1388
-}
+  background-color:#006699}
 
 .title-container {
   position:relative;

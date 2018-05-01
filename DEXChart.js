@@ -40,7 +40,7 @@ var tooltipLabels = [];
 var animationDuration = 1000;
 
 function generateData() {
-	var color = "rgb(75, 19, 136)";
+	var color = "#4d0000";
 	var gridColor = "rgba(0, 0, 0, 0.1)";
 	var labels = [];
 	var colors = [];
@@ -66,8 +66,8 @@ function generateData() {
 		document.getElementById(tier).innerHTML = "Total: " + tierTotal;
 		tierNum++;
 		
-		if(color == "rgb(75, 19, 136)") color = "rgb(234, 98, 20)";
-		else color = "rgb(75, 19, 136)";
+		if(color == "#4d0000") color = "#006699";
+		else color = "#4d0000";
 		
 	}
 	
@@ -89,7 +89,7 @@ function generateMapData() {
 	var tierNum = 1;
 	var datasets = [];
 	var data = [];
-	var color = ['rgb(42, 2, 68)', 'rgb(102, 54, 132)', 'rgb(205, 167, 229)'];
+	var color = ['#00334d', '#006699', '#66ccff'];
 	var datasetLabels = [];
 	var maxLength = 0;
 	var maxTotal = 0;

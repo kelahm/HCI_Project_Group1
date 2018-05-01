@@ -35,13 +35,13 @@ html,body {
 }
 
 .navbar h3 {
-  margin-left: 35%;
+  position: center;
   display:block;
   line-height:25px;
-  color: #8459AB;
+  color: #006699;
   font-size:30px;
   font-family:Verdana, 'Geneva', sans-serif;
-  text-align: center;
+  text-align:center;
 }
 
 .icon {
