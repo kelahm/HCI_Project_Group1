@@ -182,7 +182,7 @@
 
 							<label style="font-size:3vmin">End Time & Date:</label>
 							<br/>
-							<form>
+							<div>
 								<div style="padding:2px">
 									<input id="edate" type="date">
 								</div>
@@ -190,7 +190,8 @@
 									<input id="etime" type="time" value="00:00:00">
 									<label>(CST)</label>
 								</div>
-							</form>
+								<button onclick="loadDates()" style="background-color:lightgray"> Reset to Default </button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -265,16 +266,20 @@
 	});
 	
 	$('.dropdown-menu').on('change', function(event) {
-	    animationDuration = 1000;
 		if(event.originalEvent.path[0].id == "edate" || event.originalEvent.path[0].id == "etime") liveData = false;
 		handleDateChange();
 		
-		updateDefaultDrillDown();
-		updateDrillDown();
-		if (document.getElementById("chooseChart").className == "chosen")
-			showChart();
-		else
-			showMap();
+		
+		if (event.originalEvent.path[0].id.includes("Default")) {
+			updateDefaultDrillDown();
+		} else {
+			animationDuration = 1000;
+			updateDrillDown();
+			if (document.getElementById("chooseChart").className == "chosen")
+				showChart();
+			else
+				showMap();
+		}
 	});
 
 	$('body').on('click', function(event) {

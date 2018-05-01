@@ -7,8 +7,10 @@ function loadDates() {
 
 	document.getElementById('edate').valueAsDate = today;
 	document.getElementById('sdate').valueAsDate = yesturday;
-	document.getElementById('stime').value = today.toTimeString().substring(0, 8);
+	document.getElementById('stime').value = yesturday.toTimeString().substring(0, 8);
 	document.getElementById('etime').value = today.toTimeString().substring(0, 8);
+	
+	liveData = true;
 }
 
 var liveData = true;
@@ -85,7 +87,21 @@ function populateDrillDownMenu(region, district, location) {
 	} else {
 		createDropDownInput("District", [], district, menuArea);
 		createDropDownInput("Location", [], district, menuArea);
-	}							
+	}	
+
+	menuArea.innerHTML += '<button onclick="resetDrillDown()" style="background-color:lightgray"> Reset to Default </button>';
+}
+
+function resetDrillDown() {
+	var region = document.getElementById("DefaultRegion").value;
+	var district = document.getElementById("DefaultDistrict").value;
+	var location = document.getElementById("DefaultLocation").value;
+	if (region == "None Selected") region = false;
+	if (district == "None Selected") district = false;
+	if (location == "None Selected") location = false;
+	
+	animationDuration = 1000;
+	populateDrillDownMenu(region, district, location);
 }
 
 
@@ -318,7 +334,7 @@ function updatePPHData() {
 	
 	if (liveData) {
 		var now = document.getElementById("etime").value;
-		console.log(now);
+
 		var percentIntoBucket = (parseInt(now.substring(3, 5)) * 60 + parseInt(now.substring(6, 8))) / 60 / 60;
 		timeJustData[timeJustData.length-1][0] *= percentIntoBucket;
 		timeJustData[timeJustData.length-1][0] = Math.floor(timeJustData[timeJustData.length-1][0]);
