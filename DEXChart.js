@@ -102,13 +102,14 @@ function generateMapData() {
 				tooltipData.push([]);
 				tooltipLabels.push([]);
 				if (i > maxLength) maxLength = i;
-				
-				for(var t = 0; t < tierNum - 1; t++) {
+			}
+			
+			for(var t = data[i].length; t < tierNum - 1; t++) {
 					data[i].push(0);
 					tooltipData[i].push(0);
 					tooltipLabels[i].push("");
-				}
 			}
+			
 			
 			data[i].push(getDEXData(label[i]));
 			tooltipLabels[i].push(label[i]);
@@ -128,19 +129,19 @@ function generateMapData() {
 	var total = 0;
 	for(var i = 0; i < Object.keys(tiers).length; i++) {
 		total = 0;
-		for (var j = 0; j < maxLength; j++) {
+		for (var j = 0; j <= maxLength; j++) {
 			if (i >= data[j].length) break;
 			
 			total += data[j][i];
 		}
 		
-		for (var j = 0; j < maxLength; j++) {
+		for (var j = 0; j <= maxLength; j++) {
 			if (i >= data[j].length) break;
 			data[j][i] *= maxTotal / total;
 		}
 	}
 	
-	for (var i = 0; i < maxLength; i++) {
+	for (var i = 0; i <= maxLength; i++) {
 		datasets.push({
 			label: "", //datasetLabels[0],
 			borderWidth: 5,
@@ -285,7 +286,7 @@ function showMap() {
 				var dataset = chart.data.datasets[d];
 				var padding = 15;
 				for (var i = 0; i < dataset.data.length; i++) {
-					if (d < 2) ctx.fillStyle = '#FFF'; // label color
+					if ((d %3) < 2) ctx.fillStyle = '#FFF'; // label color
 					else ctx.fillStyle = '#000';
 					ctx.font = "10pt Verdana";
 					var label = tooltipLabels[d][i];
