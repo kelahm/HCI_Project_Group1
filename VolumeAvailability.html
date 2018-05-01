@@ -3,7 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
 
       
     <!-- CSS -->
@@ -94,7 +94,7 @@
 	</div>
           <h3 class="display-2">Volume Availability Status</h3>  
       </div> 
-     <div class="text-center row" style="background-color:rgb(42, 2, 68);color:#fff;">
+     <div class="text-center row" style="background-color:rgb(96, 124, 140);color:#fff;">
         <div class="text-center col-md-4 col-sm-4" style="border-right:5px solid white;">
             <span id="earlyperc"></span>% Early
             <br>
@@ -237,27 +237,111 @@
 
 
   <div STYLE="height:4vh;position:fixed;bottom:0;width:100%;background-color:transparent">
-	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:#4B1388;">
+	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:rgb(50,77,92);">
 		<div class="container" style="min-width: 100%">
 			<div class="row" style="min-width: 100%">
 				<div class="col" style="min-width: 33%; text-align: center">
-					<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#4B1388; color:#fff; border:none">
-							<i class="far fa-compass" style="font-size: 3em; color: white"></i>
-					</button>
-					<div id="drill-down" class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; padding:10px">
+					
+					<div class="btn-group dropup btn-group-sm">
+						<button type="button"  aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+								 style="background-color:rgb(50,77,92); color:#fff; border:none">
+							<i class="fas fa-filter" style="font-size: 3em; color: white"></i>
+						</button>
+						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9">
+							<label style="font-size:3vmin">Region:</label>
+							<br/>
+							<div class="selectWrapper">
+								<select>
+									  <option value="none">None Selected</option>
+									  <option value="east">Eastern</option>
+									  <option value="west">Western</option>
+									  <option value="cent">Central</option>
+									  <option value="south">Southern</option>
+								</select>
+							</div>
+							<br/>
+						
+							<label style="font-size:3vmin">District:</label>
+							<br/>
+							<div class="selectWrapper">
+								<select>
+									  <option value="none">None Selected</option>
+									  <option value="bost">Bostonian</option>
+									  <option value="biga">Big Apple</option>
+									  <option value="cap">Capital</option>
+								</select>
+							</div>
+							<br/>
+						
+							<label style="font-size:3vmin">Location:</label>
+							<br/>
+							<div class="selectWrapper">
+								<select>
+									  <option value="none">None Selected</option>
+									  <option value="orha">ORHA</option>
+									  <option value="beda">BEDA</option>
+									  <option value="nzwa">NZWA</option>
+									  <option value="bvya">BVYA</option>
+									  <option value="pvda">PVDA</option>
+									  <option value="psma">PSMA</option>
+									  <option value="bgra">BGRA</option>
+									  <option value="auga">AUGA</option>
+									  <option value="owda">OWDA</option>
+									  <option value="cefa">CEFA</option>									  
+								</select>
+							</div>
+							<br/>
+							<p style="font-size:3vmin;">Manager:<br/><span style="font-size:2vmin">Manager Name</span></p>
+						</div>
 					</div>
 				</div>
 				<div class="col" style="min-width: 33%; text-align: center">
 					<div class="btn-group dropup btn-group-sm">
 						<button type="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#4B1388; color:#fff; border:none">
+								 style="background-color:rgb(50,77,92); color:#fff; border:none">
 							<i class="fas fa-cog" style="font-size: 3em; color: white"></i>
 						</button>
 						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%">
 							<!-- Drag and Drop Tiers -->
 							<label style="font-size:3vmin">Default Drilldown:</label>
-							<div id="default-drill-down">
+							<br/>
+							<div class="container">
+								<div class="row" style="width: 100%">
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">Region:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="west">Western</option>
+											  <option value="east">Eastern</option>
+											  <option value="cent">Central</option>
+											  <option value="south">Southern</option>
+											</select>
+									</div>
+									<div class="col"  style="width: 33%"></div>
+								</div>
+								<div class="row" style="width: 100%">
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">District:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="west">Western</option>
+											  <option value="east">Eastern</option>
+											  <option value="cent">Central</option>
+											  <option value="south">Southern</option>
+											</select>
+									</div>
+									<div class="col" style="width: 33%"></div>
+								</div>
+								<div class="row" style="width: 100%">
+									<div class="col" style="width: 33%"><label style="font-size:2vmin">Location:</label></div>
+									<div class="col" style="width: 33%">
+											<select>
+											  <option value="west">Western</option>
+											  <option value="east">Eastern</option>
+											  <option value="cent">Central</option>
+											  <option value="south">Southern</option>
+											</select>
+									</div>
+									<div class="col" style="width: 33%"></div>
+								</div>
 							</div>
                         </div>
                     </div>
@@ -265,7 +349,6 @@
             </div>
         </div>					
 	</nav>
-	<script src="menu.js"></script>
 	
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -285,10 +368,8 @@
 	$('.dropdown-menu').on('click', function(event) {
 		event.stopPropagation();
 	});
-	
-	$('.dropdown-menu').on('change', function(event) {
-		updateDefaultDrillDown();
-		updateDrillDown();
+	$('.selectpicker').selectpicker({
+		container: 'body'
 	});
 	$('body').on('click', function(event) {
 		var target = $(event.target);
