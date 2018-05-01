@@ -4,7 +4,6 @@ function loadDates() {
 	yesturday.setDate(today.getDate() - 1);
 	yesturday.setHours(today.getHours() + 1);
 	document.getElementById('sddate').valueAsDate = yesturday;
-	document.getElementById('eddate').valueAsDate = today;
 
 	document.getElementById('edate').valueAsDate = today;
 	document.getElementById('sdate').valueAsDate = yesturday;

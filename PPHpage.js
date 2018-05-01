@@ -277,6 +277,7 @@ function handleTimeClick(data) {
 }
 
 window.onload = function() {
+	drawPPHCharts();
 	setInterval(function() {
 		updateTime(drawPPHCharts);
 	}, 500);
