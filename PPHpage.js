@@ -38,6 +38,7 @@ var placeJustData = [
 ];
 
 var DrillDownLabel = "";
+var axisLabel;
 
 function generateData(data) {
 	var plannedData = [];
@@ -116,7 +117,7 @@ function drawPPHCharts() {
 					stacked: true,
 					scaleLabel: {
 						display: true,
-						labelString: 'Packages Per Hour'
+						labelString: axisLabel,
 					},
 					ticks: {
                               beginAtZero: true,

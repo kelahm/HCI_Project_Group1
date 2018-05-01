@@ -353,6 +353,7 @@ function makeTimeBuckets() {
 	
 	console.log(hours);
 	if (hours <= 24) {
+		axisLabel = "Packages Per Hour";
 		var hourWord;
 		for (var i = parseInt(stime.substring(0, 2)); i <= parseInt(stime.substring(0, 2)) + hours; i++) {
 			hourWord = i;
@@ -366,6 +367,7 @@ function makeTimeBuckets() {
 			buckets.push(hourWord);
 		}
 	} else {
+		axisLabel = "Average Packages Per Hour";
 		var bucketDate = new Date(sdate);
 		var bucketSize = Math.ceil(hours / 24);
 		var start = parseInt(stime.substring(0, 2));
@@ -375,10 +377,24 @@ function makeTimeBuckets() {
 		else description = " p.m.";
 		
 		var last = false;
+		
+		var showTime = true;
+		var showYear = false;
+	
+		if (hours > 24 * 24) showTime = false;
+		if (hours > 24 * 365) showYear = true;
+		
+		var label = "";
 		while (hours > 0 && !last) {
 			if (hours < 0) last = true;
 			if (hours == 0) break;
-			buckets.push(start+description+" "+ (bucketDate.getMonth()+1) + "/" + bucketDate.getDate());
+			
+			label = "";
+			if (showTime) label += start+description+" ";
+			label += (bucketDate.getMonth()+1) + "/" + bucketDate.getDate();
+			if (showYear) label += "/20" + (bucketDate.getYear()-100);
+				
+			buckets.push(label);
 			start += bucketSize;
 			
 			while (start > 12) {
@@ -388,8 +404,6 @@ function makeTimeBuckets() {
 					description = " a.m.";
 					bucketDate.setDate(bucketDate.getDate()+1);
 				}
-				
-				
 			}
 			
 			hours -= bucketSize;
