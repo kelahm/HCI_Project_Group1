@@ -421,10 +421,11 @@ function makeTimeBuckets() {
 		var start = parseInt(stime.substring(0, 2));
 		var description;
 		
-		if (start < 12) description = " a.m.";
-		else { 
+		if (start < 12) {
+			description = " a.m.";
+		} else { 
 			description = " p.m.";
-			start -= 12;
+			if (start != 12) start -= 12;
 		}
 		
 		var last = false;
@@ -441,7 +442,10 @@ function makeTimeBuckets() {
 			if (hours == 0) break;
 			
 			label = "";
-			if (showTime) label += start+description+" ";
+			if (showTime) {
+				if (start == 0) label += "12 a.m. ";
+				else label += start+description+" ";
+			}
 			label += (bucketDate.getMonth()+1) + "/" + bucketDate.getDate();
 			if (showYear) label += "/20" + (bucketDate.getYear()-100);
 				
