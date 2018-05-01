@@ -334,3 +334,10 @@ window.onload = function() {
 		});
 	}, 1000);
 }
+
+function refreshData() {
+	if (document.getElementById("chooseChart").className == "chosen")
+				showChart();
+			else
+				showMap();
+}

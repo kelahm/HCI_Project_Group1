@@ -282,3 +282,7 @@ window.onload = function() {
 		updateTime(drawPPHCharts);
 	}, 500);
 }
+
+function refreshData() {
+	drawPPHCharts();
+}

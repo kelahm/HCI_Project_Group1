@@ -102,6 +102,7 @@ function resetDrillDown() {
 	
 	animationDuration = 1000;
 	populateDrillDownMenu(region, district, location);
+	refreshData();
 }
 
 
