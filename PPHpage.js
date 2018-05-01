@@ -63,8 +63,6 @@ function generateData(data) {
 		
 	}
 	
-	console.log(plannedData);
-	
 	return {
 		labels: labels,
 		datasets: [{
@@ -105,6 +103,7 @@ function drawPPHCharts() {
 		type: 'bar',
 		data: chartData,
 		options: {
+			onClick: handleTimeClick,
 			responsive: true,
 			maintainAspectRatio: false,
 			title: {
@@ -151,6 +150,7 @@ function drawPPHCharts() {
 				displayColors: false,
 				callbacks: {
 					label: function(tooltipItems, data) { 
+					    hoveringOver = tooltipItems.xLabel;
 						return  ['Actual: ' + timeJustData[tooltipItems.index][0], "Planned: " + timeJustData[tooltipItems.index][1]];
 					},
 				}
@@ -188,7 +188,7 @@ function drawPPHCharts() {
 							stacked: true,
 							scaleLabel: {
         display: true,
-        labelString: 'Average Packages Per Hour',
+        labelString: 'Packages',
       }
 						}],
 						xAxes: [{
@@ -222,4 +222,42 @@ function drawPPHCharts() {
 function handleLocationClick(data) {
 	drillDownTo(hoveringOver);
 	drawPPHCharts();
+}
+
+function handleTimeClick(data) {
+	var start = bucketRanges[hoveringOver];
+	if (start) {
+	var end = new Date(start.getTime());
+	end.setTime(end.getTime() + bucketSize * 60 * 60 * 1000);
+	console.log(start, end);
+	
+	var sdate = (start.getYear()-100+2000) + "-";
+	if (start.getMonth() < 10) sdate += "0";
+	sdate += start.getMonth() + "-";
+	if (start.getDate() < 10) sdate += "0";
+	sdate += start.getDate();
+	
+	var edate = (end.getYear()-100+2000) + "-";
+	if (end.getMonth() < 10) edate += "0";
+	edate += end.getMonth() + "-";
+	if (end.getDate() < 10) edate += "0";
+	edate += end.getDate();
+	
+	var stime = "";
+	if (start.getHours() < 10) stime += 0;
+	stime += start.getHours() + ":";
+	if (start.getMinutes() < 10) stime += 0;
+	stime += start.getMinutes();
+	
+	var etime = "";
+	if (end.getHours() < 10) etime += 0;
+	etime += end.getHours() + ":";
+	if (end.getMinutes() < 10) etime += 0;
+	etime += end.getMinutes();
+	document.getElementById("sdate").value =  sdate;
+	document.getElementById("edate").value =  edate;
+	document.getElementById("stime").value = stime;
+	document.getElementById("etime").value = etime;
+	drawPPHCharts();
+	}
 }
