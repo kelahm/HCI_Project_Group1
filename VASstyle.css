@@ -39,7 +39,7 @@
   }
 
 .table tr:nth-child(even) {
-    background-color: #ffcccc;
+    background-color: #ffd9b3;
 }
 #ColumnMenu {
     font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
