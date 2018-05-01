@@ -71,14 +71,18 @@ function generateData(data) {
 			backgroundColor: plannedColors,
 			borderColor:  plannedColors,
 			borderWidth: 1,
-			data: plannedData
+			data: plannedData,
+			xAxisID: 'plannedx',
+			stack: 1
 		},
 		{
 			label: 'Actual',
 			backgroundColor:  actualColors,
 			borderColor: actualColors,
 			borderWidth: 1,	
-			data: actualData
+			data: actualData,
+			xAxisID: 'actualx',
+			stack: 1
 		}]
 	};
 }
@@ -113,13 +117,33 @@ function drawPPHCharts() {
 					scaleLabel: {
 						display: true,
 						labelString: 'Packages Per Hour'
+					},
+					ticks: {
+                              beginAtZero: true,
 					}
-				}],
+				}, ],
 				xAxes: [{
+					display: true,
 					ticks: {
 						autoSkip: false,
 					},
-					stacked: true
+					stacked: true,
+					id: 'actualx',
+					barPercentage: .4
+				},
+				{
+					display: false,
+					ticks: {
+						autoSkip: false,
+					},
+					stacked: true,
+					id: 'plannedx',
+					type: 'category',
+                          categoryPercentage: 1,
+                          barPercentage: .7,
+                          gridLines: {
+                              offsetGridLines: true
+                          }
 				}]
 			},
 			tooltips: {
@@ -163,15 +187,31 @@ function drawPPHCharts() {
 							stacked: true,
 							scaleLabel: {
         display: true,
-        labelString: 'Average Packages Per Hour'
+        labelString: 'Average Packages Per Hour',
       }
 						}],
 						xAxes: [{
+							display: true,
+							id: "actualx",
 							ticks: {
 								autoSkip: false,
 							},
-							stacked: true
-						}]
+							stacked: true,
+							barPercentage: .4,
+						}, {
+					display: false,
+					ticks: {
+						autoSkip: false,
+					},
+					stacked: true,
+					id: 'plannedx',
+					type: 'category',
+                          categoryPercentage: 1,
+                          barPercentage: .7,
+                          gridLines: {
+                              offsetGridLines: true
+                          }
+				}]
 					}
 				}
 			});

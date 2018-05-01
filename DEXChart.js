@@ -30,7 +30,7 @@ function showTitles() {
 	var percent;
 	for (var tier in tiers) {
 		percent = Math.floor(tiers[tier].length / exceptions.length * 100);
-		container.innerHTML += "<div class='tiers' style='width:" +percent+ "%;font-size:20px'><h5>" + tier + "</h5><p id='" + tier + "' style='font-size:10px;text-align:center'></p></div>"
+		container.innerHTML += "<div class='tiers' style='width:" +percent+ "%;font-size:20px'><h5>" + tier + "</h5><p id='" + tier + "' style='font-size:14px;text-align:center'></p></div>"
 	}
 }
 
@@ -199,6 +199,8 @@ function showChart() {
 		
 		Chart.plugins.register({
 			afterDatasetsDraw: function(chart) {
+				if(chart.chart.config.type != "bar") return;
+				
 				var ctx = chart.chart.ctx;
 
 				chart.data.datasets.forEach(function(dataset, i) {
@@ -285,7 +287,7 @@ function showMap() {
 				for (var i = 0; i < dataset.data.length; i++) {
 					if (d < 2) ctx.fillStyle = '#FFF'; // label color
 					else ctx.fillStyle = '#000';
-					ctx.font = "15pt Verdana";
+					ctx.font = "10pt Verdana";
 					var label = tooltipLabels[d][i];
 					
 					var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
