@@ -2,11 +2,25 @@ function loadDates() {
 	var today = new Date();
 	var yesturday = new Date();
 	yesturday.setDate(today.getDate() - 1);
+	yesturday.setHours(today.getHours() + 1);
 	document.getElementById('sddate').valueAsDate = yesturday;
 	document.getElementById('eddate').valueAsDate = today;
+
 	document.getElementById('edate').valueAsDate = today;
 	document.getElementById('sdate').valueAsDate = yesturday;
+	document.getElementById('stime').value = today.toTimeString().substring(0, 8);
+	document.getElementById('etime').value = today.toTimeString().substring(0, 8);
 }
+
+var liveData = true;
+function updateTime(cb) {
+	if (liveData) {
+		var today = new Date();
+		document.getElementById('etime').value = today.toTimeString().substring(0, 8);
+		if (cb) cb();
+	}
+}
+
 function createDropDownInput(label, options, selected, parentDiv, small) {
 	if (!small) {
 		parentDiv.innerHTML += "<label style='font-sixe:3vmin;'>" + label + "</label>";
@@ -261,7 +275,7 @@ function generateRandomPPHData() {
 	randomPPHData = [];
 	for (var area in drillDownInfo) {
 		data = {expected:[], actual:[]};
-		for(var i = 0; i < 24; i++) {
+		for(var i = 0; i <= 24; i++) {
 			data.expected.push(Math.floor(Math.random()*1000));
 			data.actual.push(Math.floor(Math.random()*1000));
 		}
@@ -303,6 +317,16 @@ function updatePPHData() {
 		}
 	}
 	
+	if (liveData) {
+		var now = document.getElementById("etime").value;
+		console.log(now);
+		var percentIntoBucket = (parseInt(now.substring(3, 5)) * 60 + parseInt(now.substring(6, 8))) / 60 / 60;
+		timeJustData[timeJustData.length-1][0] *= percentIntoBucket;
+		timeJustData[timeJustData.length-1][0] = Math.floor(timeJustData[timeJustData.length-1][0]);
+		timeJustData[timeJustData.length-1][1] *= percentIntoBucket;
+		timeJustData[timeJustData.length-1][1]  = Math.floor(timeJustData[timeJustData.length-1][1]);
+	}
+	
 	time = {};
 	for (var i = 0; i < buckets.length; i++) {
 		time[buckets[i]] = timeJustData[i];
@@ -328,7 +352,7 @@ function updatePPHData() {
 			placeJustData.push([0, 0])
 		}
 			
-		for(var i = 0; i < 24; i++) {
+		for(var i = 0; i <= 24; i++) {
 			place[area][0] += randomPPHData[d].expected[i];
 			place[area][1] += randomPPHData[d].actual[i];
 			
@@ -337,6 +361,28 @@ function updatePPHData() {
 		}
 	}
 	
+}
+
+function handleDateChange() {
+	var sdate = document.getElementById("sdate").value;
+	var stime = document.getElementById("stime").value;
+	var edate = document.getElementById("edate").value;
+	var etime = document.getElementById("etime").value;
+	
+	var start = new Date(sdate + "T" + stime);
+	var end = new Date(edate + "T" + etime);
+	var now = new Date();
+	
+	if (start - now > 0) {
+		document.getElementById('sdate').valueAsDate = now;
+		document.getElementById('stime').value = now.toTimeString().substring(0, 8);
+	} 
+	
+	if (end - now > 0) {
+		document.getElementById('edate').valueAsDate = now;
+		document.getElementById('etime').value = now.toTimeString().substring(0, 8);
+		liveData = true;
+	}
 }
 
 var bucketRanges = {};

@@ -90,6 +90,7 @@ function generateData(data) {
 var chart;		
 var placeChart;
 var hoveringOver = "";
+var animationDuration = 1000;
 
 function drawPPHCharts() {
 	updatePPHData();
@@ -103,6 +104,9 @@ function drawPPHCharts() {
 		type: 'bar',
 		data: chartData,
 		options: {
+			animation: {
+        duration: animationDuration
+    },
 			onClick: handleTimeClick,
 			responsive: true,
 			maintainAspectRatio: false,
@@ -166,6 +170,9 @@ function drawPPHCharts() {
 				type: 'bar',
 				data: chartData,
 				options: {
+					animation: {
+						duration: animationDuration
+					},
 					onClick: handleLocationClick,
 					responsive: true,
 					maintainAspectRatio: false,
@@ -217,9 +224,11 @@ function drawPPHCharts() {
 				}
 			});
 	}
+animationDuration = 0;
 };
 
 function handleLocationClick(data) {
+	animationDuration = 1000;
 	drillDownTo(hoveringOver);
 	drawPPHCharts();
 }
@@ -227,6 +236,7 @@ function handleLocationClick(data) {
 function handleTimeClick(data) {
 	var start = bucketRanges[hoveringOver];
 	if (start) {
+	animationDuration = 1000;
 	var end = new Date(start.getTime());
 	end.setTime(end.getTime() + bucketSize * 60 * 60 * 1000);
 	console.log(start, end);
@@ -258,6 +268,16 @@ function handleTimeClick(data) {
 	document.getElementById("edate").value =  edate;
 	document.getElementById("stime").value = stime;
 	document.getElementById("etime").value = etime;
+	
+	var now = new Date();
+	if (now - end > 0) liveData = false;
+	
 	drawPPHCharts();
 	}
+}
+
+window.onload = function() {
+	setInterval(function() {
+		updateTime(drawPPHCharts);
+	}, 500);
 }
