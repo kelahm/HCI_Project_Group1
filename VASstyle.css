@@ -1,9 +1,11 @@
+
 .jumbotron {
-    background-color: #4B1388;
+    background-color: rgb(50,77,92);
     color: white;
     padding-top: 5px;
-    background-size:100% 100%;
+/*    background-size:100% 100%;*/
     margin-bottom: 0;
+   
 }
 
 .display-2 {
@@ -13,25 +15,30 @@
     font-size: 250%;
     letter-spacing: 2px;
 }
-/*.col-md-4 {
-    text-align: center;
-    font-size: 100%;
-    letter-spacing: 1px;
-    font-family: 'Helvetica Neue', 'Helvetica, Arial', 'sans-serif';
-    background-color: 'rgb(42, 2, 68)';
-}*/
+
 .dataTables_filter {
     padding-right: 20px;
     padding-top: -20px;
 }
-
-.table {
-  border: 1px solid #e6e6ff;
-  border-collapse: collapse;
+.navbar{
+    position: fixed;
+    bottom: 0;
+    
 }
+.icon {
+  display:inline-block;
+  width:3%;
+  height:100%;
+}
+.table {
+  border: 1px solid rgb(50,77,92);
+  border-collapse: collapse;
+  margin-bottom:0px !important;
+  overflow: hidden; 
+  }
 
 .table tr:nth-child(even) {
-    background-color: #e6e6ff;
+    background-color: rgb(242, 193, 164);
 }
 #ColumnMenu {
     font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
@@ -40,9 +47,6 @@
 #ColumnMenu h6 {
     font-family: "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
     font-size: 16px;
-}
-#ColumnMenu a:checked {
-    text-decoration: underline;
 }
 
 .dropup .dropdown-menu {
