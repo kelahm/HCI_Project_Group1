@@ -3,6 +3,8 @@ font-family: Verdana, 'Geneva', sans-serif;
 }
 
 canvas {
+	min-width: 50%;
+	max-width: 100%;
 	min-height: 70vh;
 	max-height: 70vh;
 	margin-left: 7%;
@@ -13,18 +15,6 @@ canvas {
 	display: inline-flex;
 	margin-left: 0%;
 	width: 100%;
-}
-
-.chartContainer {
-	max-width:45%;
-	margin-right: 3%
-}
-
-@media only screen and (max-width: 900px) {
-	.chartContainer {
-		max-width:80%;
-		margin-top: 0;
-	}
 }
 
 a {
