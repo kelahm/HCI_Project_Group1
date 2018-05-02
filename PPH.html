@@ -3,8 +3,11 @@
 <!--head-->
 
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 <link rel="stylesheet" type="text/css" href="PPHpage.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Cousine" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="PPHpage.js"></script>
@@ -14,26 +17,29 @@
 <body>
 <!-- Navbar -->
 
+
+
 <div class="nav-container">
-  <div class="top-navbar">
-    <div class="title-container">
-      <h3>Packages Per Hour</h3>
+  <div class="top-navbar" style="min-height:7vh;">
+    <div class="title-container" style="margin-top: 2.vh">
+      <h3 style="white-space:nowrap; font-size:5vmin"><b>Packages Per Hour<b></h3>
     </div>
-    <div class="icon" style="position:absolute;top:17px;">
-      <a href="index.html"><img src='images/Back.svg' width=40 style="filter: brightness(170%);"></a>
+    <div class="icon" style="position:absolute;top:17px; margin-top:2.vh; margin-bottom">
+      <a href="index.html"><img src='images/Back.svg' width=40></a>
     </div>
   </div>
 </div>
 
 
-<div class="chart-container">
+
+<div class="chart-container" style="padding-top:7vh">
 	<div class="container">
-    		<div class="row">
-			<div class="col-md-6">
-	  			<canvas id="canvas"></canvas>
+		<div class="row" style="min-width:100%">
+			<div class="col-lg">
+				<canvas id="canvas" style="min-width:70%"></canvas>
 			</div>
-			<div class="col-md-6">
-	  			<canvas id="canvas2"></canvas>
+			<div class="col-lg">
+				<canvas id="canvas2" style="min-width:70%"></canvas>
 			</div>
 	  	</div>
 	</div>
@@ -84,14 +90,14 @@
     <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:#006699;">
+<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:rgb(76, 76, 127)">
 		<div class="container" style="min-width: 100%">
 			<div class="row" style="min-width: 100%">
 				<div class="col" style="min-width: 33%; text-align: center">
 					
 					<div class="btn-group dropup btn-group-sm">
 						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#006699; color:#fff; border:none">
+								 style="background-color:rgb(76, 76, 127); color:rgb(76, 76, 127); border:none">
 							<i class="far fa-compass" style="font-size: 3em; color: white"></i>
 						</button>
 						<div id="drill-down" class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; padding:10px">
@@ -101,7 +107,7 @@
 				<div class="col" style="min-width: 33%; text-align: center">
 					<div class="btn-group dropup btn-group-sm">
 						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#006699; color:#fff; border:none">
+								 style="background-color:rgb(76, 76, 127); color:rgb(76, 76, 127); border:none">
 							<i class="far fa-clock" style="font-size: 3em; color: white"></i>
 						</button>
 						<div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-100%; right:0%; padding: 10px;">
@@ -136,7 +142,7 @@
 				<div class="col" style="min-width: 33%; text-align: center">
 					<div class="btn-group dropup btn-group-sm">
 						<button type="button" class="btn dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#006699; color:#fff; border:none">
+								 style="background-color:rgb(76, 76, 127); color:rgb(76, 76, 127); border:none">
 							<i class="fas fa-user" style="font-size: 3em; color: white"></i></a>
 						</button>
 						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%; padding: 10px;">
