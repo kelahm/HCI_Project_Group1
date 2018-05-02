@@ -95,10 +95,7 @@ $(document).ready(function() {
             
         });
         
-        
-    });
-$(document).ready(function(){
-        var earlyVal = 0;
+       var earlyVal = 0;
         var earlyCount = 0;
         var lateVal = 0;
         var lateCount = 0;
@@ -134,7 +131,10 @@ $(document).ready(function(){
         document.getElementById("earlyperc").innerHTML = earlyPercentage;
         document.getElementById("lateperc").innerHTML = latePercentage;
         document.getElementById("onTimeperc").innerHTML = onTimePercentage;
-    });  
+    });   
+
+
+        
 
                 
  
