@@ -125,6 +125,7 @@ function drawPPHCharts() {
 					},
 					ticks: {
                               beginAtZero: true,
+							  fontSize: 10
 					}
 				}, ],
 				xAxes: [{
@@ -140,6 +141,7 @@ function drawPPHCharts() {
 					display: false,
 					ticks: {
 						autoSkip: false,
+						fontSize: 10
 					},
 					stacked: true,
 					id: 'plannedx',
