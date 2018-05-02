@@ -62,6 +62,10 @@ html,body {
 
 .fa-cog {
   cursor:pointer;
+  position: absolute;
+  left: 20px;
+  display: inline-block;
+  line-height: 25px;
 }
 
 /* Body */
