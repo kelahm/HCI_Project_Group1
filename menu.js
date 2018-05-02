@@ -103,6 +103,13 @@ function resetDrillDown() {
 	animationDuration = 1000;
 	populateDrillDownMenu(region, district, location);
 	refreshData();
+	
+	if (document.getElementById("drill-down-label")) {
+		if (location) document.getElementById("drill-down-label").innerHTML = ": " +location;
+		else if (district) document.getElementById("drill-down-label").innerHTML = ": " + district;
+		else if (region) document.getElementById("drill-down-label").innerHTML = ": " + region;
+		else document.getElementById("drill-down-label").innerHTML = "";
+	}
 }
 
 
@@ -133,6 +140,13 @@ function updateDrillDown() {
 	if (district == "None Selected") district = false;
 	if (location == "None Selected") location = false;
 	populateDrillDownMenu(region, district, location);
+	
+	if (document.getElementById("drill-down-label")) {
+		if (location) document.getElementById("drill-down-label").innerHTML = ": " +location;
+		else if (district) document.getElementById("drill-down-label").innerHTML = ": " + district;
+		else if (region) document.getElementById("drill-down-label").innerHTML = ": " + region;
+		else document.getElementById("drill-down-label").innerHTML = "";
+	}
 }
 
 function drillDownTo(next) {
@@ -147,6 +161,13 @@ function drillDownTo(next) {
 	else if(!district) district = next;
 	else if(!location) location = next;
 	populateDrillDownMenu(region, district, location);
+	
+		if (document.getElementById("drill-down-label")) {
+		if (location) document.getElementById("drill-down-label").innerHTML = ": " +location;
+		else if (district) document.getElementById("drill-down-label").innerHTML = ": " + district;
+		else if (region) document.getElementById("drill-down-label").innerHTML = ": " + region;
+		else document.getElementById("drill-down-label").innerHTML = "";
+	}
 }
 
 function updateDefaultDrillDown() {
