@@ -7,26 +7,26 @@ function showChartView() {
 	document.getElementById("chart").style.display = "block";
 	document.getElementById("tierNames").className = "chartTierNames";
 	document.getElementById("chart-container").style.display = "block";
-	
+
 	showChart();
 }
 
 function showMapView() {
 	document.getElementById("chooseMap").className = "chosen";
 	document.getElementById("chooseChart").className = "notChosen";
-	
+
 	document.getElementById("map").style.display= "block";
 	document.getElementById("chart").style.display= "none";
 	document.getElementById("tierNames").className = "mapTierNames";
 	document.getElementById("chart-container").style.display = "inline-flex";
-	
+
 	showMap();
 }
 
 function showTitles() {
 	var container = document.getElementById("tierNames");
 	container.innerHTML = "";
-	
+
 	var percent;
 	for (var tier in tiers) {
 		percent = Math.floor(tiers[tier].length / exceptions.length * 100);
@@ -40,7 +40,7 @@ var tooltipLabels = [];
 var animationDuration = 1000;
 
 function generateData() {
-	var color = "#4d0000";
+	var color = "rgb(76, 76, 127)";
 	var gridColor = "rgba(0, 0, 0, 0.1)";
 	var labels = [];
 	var colors = [];
@@ -48,7 +48,7 @@ function generateData() {
 	var gridlines = ["rgba(0, 0, 0, 0.1)"];
 	var tierTotal;
 	var tierNum = 1;
-	
+
 	for(var tier in tiers) {
 		var label = tiers[tier];
 		tierTotal = 0;
@@ -57,20 +57,20 @@ function generateData() {
 			data.push(getDEXData(label[i]));
 			colors.push(color);
 			if (i > 0) gridlines.push(gridColor);
-			
+
 			tierTotal += getDEXData(label[i]);
 			total += getDEXData(label[i]);
 		}
 		gridlines.push('black');
-		
+
 		document.getElementById(tier).innerHTML = "Total: " + tierTotal;
 		tierNum++;
-		
-		if(color == "#4d0000") color = "#006699";
-		else color = "#4d0000";
-		
+
+		if(color == "rgb(76, 76, 127)") color = "rgb(204, 173, 143)";
+		else color = "rgb(76, 76, 127)";
+
 	}
-	
+
 	return {data: {
 			labels: labels,
 			datasets: [{
@@ -80,7 +80,7 @@ function generateData() {
 				borderWidth: 1,
 				data: data
 			}]
-		}, 
+		},
 		gridColors: gridlines};
 }
 
@@ -89,7 +89,7 @@ function generateMapData() {
 	var tierNum = 1;
 	var datasets = [];
 	var data = [];
-	var color = ['#00334d', '#006699', '#66ccff'];
+	var color = ['rgb(38, 38, 76)', 'rgb(76, 76, 127)', 'rgb(125, 125, 178)'];
 	var datasetLabels = [];
 	var maxLength = 0;
 	var maxTotal = 0;
@@ -98,7 +98,7 @@ function generateMapData() {
 	for(var tier in tiers) {
 		var label = tiers[tier];
 		tierTotal = 0;
-		
+
 		for (var i = 0; i < label.length; i++) {
 			if (!data[i]) {
 				data.push([]);
@@ -106,21 +106,21 @@ function generateMapData() {
 				tooltipLabels.push([]);
 				if (i > maxLength) maxLength = i;
 			}
-			
+
 			for(var t = data[i].length; t < tierNum - 1; t++) {
 					data[i].push(0);
 					tooltipData[i].push(0);
 					tooltipLabels[i].push("");
 			}
-			
-			
+
+
 			data[i].push(getDEXData(label[i]));
 			tooltipLabels[i].push(label[i]);
 			tooltipData[i].push(getDEXData(label[i]));
-			
+
 			tierTotal += getDEXData(label[i]);
 			total += getDEXData(label[i]);
-			
+
 		}
 
 		document.getElementById(tier).innerHTML = "Total: " + tierTotal;
@@ -128,7 +128,7 @@ function generateMapData() {
 		labels.push(tier);
 		tierNum++;
 	}
-	
+
 	console.log(tooltipLabels);
 
 	var total = 0;
@@ -136,16 +136,16 @@ function generateMapData() {
 		total = 0;
 		for (var j = 0; j <= maxLength; j++) {
 			if (i >= data[j].length) break;
-			
+
 			total += data[j][i];
 		}
-		
+
 		for (var j = 0; j <= maxLength; j++) {
 			if (i >= data[j].length) break;
 			data[j][i] *= maxTotal / total;
 		}
 	}
-	
+
 	for (var i = 0; i <= maxLength; i++) {
 		datasets.push({
 			label: "", //datasetLabels[0],
@@ -155,7 +155,7 @@ function generateMapData() {
 			borderColor:  'white'
 		});
 	}
-			
+
 	return {data: {
 			labels: labels,
 			datasets: datasets
@@ -165,9 +165,9 @@ function generateMapData() {
 function showChart() {
 			var ctx ;
 			var chartData = generateData();
-			
+
 			document.getElementById("chart").innerHTML = "<canvas id='canvas'></canvas>";
-			
+
 			ctx = document.getElementById('canvas').getContext('2d');
 			var chart = new Chart(ctx, {
 				type: 'bar',
@@ -206,11 +206,11 @@ function showChart() {
 			});
 			animationDuration = 0;
 		};
-		
+
 		Chart.plugins.register({
 			afterDatasetsDraw: function(chart) {
 				if(chart.chart.config.type != "bar") return;
-				
+
 				var ctx = chart.chart.ctx;
 
 				chart.data.datasets.forEach(function(dataset, i) {
@@ -240,7 +240,7 @@ function showChart() {
 				});
 			}
 		});
-		
+
 var mapChart;
 function showMap() {
 			var ctx ;
@@ -265,7 +265,7 @@ function showMap() {
 					tooltips: {
 						displayColors: false,
 						callbacks: {
-							label: function(tooltipItems, data) { 
+							label: function(tooltipItems, data) {
 								return tooltipLabels[tooltipItems.datasetIndex][tooltipItems.index] + ' : ' + tooltipData[tooltipItems.datasetIndex][tooltipItems.index];
 							}
 						},
@@ -277,7 +277,7 @@ function showMap() {
 					scales: {
 						xAxes: [{
 							stacked: true,
-							display: false  
+							display: false
 						}],
 						yAxes: [{
 							categoryPercentage: 1.0,
@@ -302,22 +302,22 @@ function showMap() {
 					else ctx.fillStyle = '#000';
 					ctx.font = "10pt Verdana";
 					var label = tooltipLabels[d][i];
-					
+
 					var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-					
+
 					var yPos = model.y + 8;
 					var xPos = model.x - ctx.measureText(label).width - padding;
-					
+
 					if (d > 0 && chart.data.datasets[d-1]._meta[Object.keys(chart.data.datasets[d-1]._meta)[0]].data[i]) {
 						var model2 = chart.data.datasets[d-1]._meta[Object.keys(chart.data.datasets[d-1]._meta)[0]].data[i]._model;
 						if (xPos-padding > model2.x) ctx.fillText(label, xPos, yPos);
 					} else {
 						if (xPos > padding) ctx.fillText(label, xPos, yPos);
 					}
-					
-					
+
+
 				}
-            }               
+            }
         }
        }]
 	});
