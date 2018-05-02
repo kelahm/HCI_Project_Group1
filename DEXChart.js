@@ -30,7 +30,7 @@ function showTitles() {
 	var percent;
 	for (var tier in tiers) {
 		percent = Math.floor(tiers[tier].length / exceptions.length * 100);
-		container.innerHTML += "<div class='tiers' style='width:" +percent+ "%;font-size:20px'><h5>" + tier + "</h5><p id='" + tier + "' style='font-size:14px;text-align:center'></p></div>"
+		container.innerHTML += "<div class='tiers' style='width:" +percent+ "%;font-size:20px'><h5>" + tier + "</h5><p id='" + tier + "' style='text-align:center'></p></div>"
 	}
 }
 
