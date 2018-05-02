@@ -31,6 +31,10 @@
 	color: rgb(76, 76, 127);
 }
 
+.toggle-vis:hover {
+  cursor:pointer;
+}
+
 .icon {
 	position:absolute;
 	top:0px;
