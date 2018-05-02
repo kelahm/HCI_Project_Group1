@@ -162,6 +162,7 @@ function generateMapData() {
 		}};
 }
 
+var hovering = 0;
 function showChart() {
 			var ctx ;
 			var chartData = generateData();
@@ -182,6 +183,9 @@ function showChart() {
 						display: false
 					},
 					tooltips: {
+						custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 						displayColors: false
 					},
 					title: {
@@ -263,6 +267,9 @@ function showMap() {
 						display: false
 					},
 					tooltips: {
+						custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 						displayColors: false,
 						callbacks: {
 							label: function(tooltipItems, data) {
@@ -328,10 +335,14 @@ window.onload = function() {
 	showTitles();
 	showChart();
 	setInterval(function() {
+		if (!hovering) {
 		updateTime(function() {
 			if (document.getElementById("chooseChart").className == "chosen")
 				showChart();
+			else
+				showMap();
 		});
+		}
 	}, 1000);
 }
 

@@ -1,6 +1,10 @@
+body {
+font-family: Verdana, 'Geneva', sans-serif;
+}
+
 canvas {
-	min-width: 40%;
-	max-width: 40%;
+	min-width: 50%;
+	max-width: 100%;
 	min-height: 70vh;
 	max-height: 70vh;
 	margin-left: 7%;
@@ -45,30 +49,33 @@ html,body {
   width:100%;
   height:50px;
   box-shadow: 0 0 3px 3px lightGray;
-  background-color:#006699
-}
+  background-color: white}
 
 .title-container {
   position:relative;
-  width:97%;
+  width:100%;
   height:100%;
   display:inline-block;
-  float:right;
+  float:center;
 }
 
 .top-navbar h3 {
-  margin-left: 37%;
   display:block;
   line-height:50px;
   color: white;
   font-size:30px;
   font-family:Verdana, 'Geneva', sans-serif;
+	text-align: center;
+	color: rgb(76, 76, 127);
 }
 
 .icon {
+	position:absolute;
+	top:0px;
+	left:0px;
   display:inline-block;
   width:3%;
-  height:100%;
+  height:83%;
 }
 
 .icon > a {

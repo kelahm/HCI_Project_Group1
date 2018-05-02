@@ -20,90 +20,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
-
-
-      <script>
-        $(document).ready(function() {
-            var table = $('#example').DataTable( {
-                
-                        "scrollY": "65vh",
-                        "paging": false,
-                        "bInfo": false,
-                        rowReorder: {
-                            selector: 'td:nth-child(3)'
-                            },
-                        responsive: true
-                        });
-            
- 
-        $('a.toggle-vis').on( 'click', function (e) {
-            e.preventDefault();
- 
-            // Get the column API object
-            var column = table.column( $(this).attr('data-column') );
- 
-            // Toggle the visibility
-            column.visible( ! column.visible() );
-        } );
-        });
-        
-            
-      </script>
-
-      
-    <script language="javascript" type="text/javascript">
-    $(document).ready(function(){
-        var earlyVal = 0;
-        var earlyCount = 0;
-        var lateVal = 0;
-        var lateCount = 0;
-        var onTimeCount = 0;
-        
-        var table = $('#example').DataTable();
-        var arrival = table.column([7]).data();
-        var minutes = table.column([8]).data();
-        
-        for(var i=0; i<arrival.length; i++)
-        {
-           if (arrival[i] == 'Early') 
-           {
-               earlyVal += Number(minutes[i]); 
-               earlyCount++;
-           }
-           else if(arrival[i] == 'Late')
-           {
-               lateVal += Number(minutes[i]);
-               lateCount++;
-           }
-           else{
-               onTimeCount++;
-           }
-        }
-        var earlyAverage = (earlyVal/earlyCount).toPrecision(2);
-        var lateAverage = (lateVal/lateCount).toPrecision(2);
-        var earlyPercentage = ((earlyCount/minutes.length)*100).toPrecision(2);
-        var latePercentage = ((lateCount/minutes.length)*100).toPrecision(2);
-        var onTimePercentage = ((onTimeCount/minutes.length)*100).toPrecision(2);
-        document.getElementById("early").innerHTML = earlyAverage;
-        document.getElementById("late").innerHTML = lateAverage;
-        document.getElementById("earlyperc").innerHTML = earlyPercentage;
-        document.getElementById("lateperc").innerHTML = latePercentage;
-        document.getElementById("onTimeperc").innerHTML = onTimePercentage;
-    });  
-    </script>
+    <script src="VAS.js"></script>
    
   </head>
   <body>
-    <div class="jumbotron jumbotron-fluid" style="padding-bottom:10px;width:100%;">
-        <div class=container style="width: 100%">
-             <div class="icon">
-		          <a href="index.html"><img src='images/Back.svg' width=40 style="filter: brightness(170%);"></a>
-	       </div>
-          <h3 class="display-2">Volume Availability Status</h3>  
-      </div> 
-        </div>
+    <div class="nav-container">
+	  <div class="top-navbar">
+		<div class="title-container">
+		  <h3 style="white-space:nowrap; font-size:5vmin"><b>Volume Availability Status</b></h3>
+		</div>
+		<div class="icon">
+		  <a href="index.html"><img src='images/Back.svg' width=40></a>
+		</div>
+	  </div>
+	</div>
 	 
-     <div class="text-center row" style="background-color:#4d0000;color:#fff;">
+     <div class="text-center row" style="background-color:rgb(76, 76, 127);color:#fff;">
         <div class="text-center col-md-4 col-sm-4" style="border-right:5px solid white;">
             <span id="earlyperc"></span>% Early
             <br>
@@ -134,181 +66,51 @@
 
     </div>
     
-  <table id="example" class="table table-striped table-bordered nowrap" cellspacing="0" `cellpadding="0" border="0"` 
-style="width:100%">
-    <thead>
-        <tr><th>Division</th><th>Region</th><th>District</th><th>Location</th><th>Vehicle ID</th><th>Inbound/Outbound</th><th>ETA</th><th>Arrival Status</th><th>Early/Late(mins)</th></tr>
-    </thead>
-    <tbody>
-     <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>ORHA</td><td>WMC121A</td><td>Inbound</td><td>11:04 PM</td><td>Early</td><td>21</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>BEDA</td><td>KJM123K</td><td>Inbound</td><td>6:36 AM</td><td>Early</td><td>9</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>NZWA</td><td>MCM234D</td><td>Outbound</td><td>2:02 AM</td><td>Late</td><td>8</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Bostonian</td><td>BVYA</td><td>JDJ545B</td><td>Inbound</td><td>6:24 PM</td><td>On Time</td><td>0</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Big Apple</td><td>NYCA</td><td>BOY1VWI</td><td>outbound</td><td>9:29 PM</td><td>Late</td><td>56</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Big Apple</td><td>JRBA</td><td>76SFKJ5</td><td>outbound</td><td>7:10 PM</td><td>Early</td><td>59</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Big Apple</td><td>WTCA</td><td>BGVNIRF</td><td>outbound</td><td>1:15 AM</td><td>Early</td><td>2</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Capital</td><td>GAIA</td><td>TAP3LUJ</td><td>outbound</td><td>6:27 PM</td><td>Late</td><td>42</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Capital</td><td>HGRA</td><td>KRSGW7G</td><td>outbound</td><td>3:53 PM</td><td>Late</td><td>59</td></tr>
-     <tr><td>US Ops</td><td>Eastern</td><td>Capital</td><td>DGNA</td><td>KAX5D1E</td><td>outbound</td><td>3:55 PM</td><td>49</td><td>Late</td></tr>
-     <tr><td>US Ops</td><td>Western</td><td>Canyon</td><td>ZSYA</td><td>9GMFF74</td><td>inbound</td><td>1:59 PM</td><td>Late</td><td>36</td></tr>
-     <tr><td>US Ops</td><td>Western</td><td>Canyon</td><td>BTFA</td><td>NC8HEXS</td><td>outbound</td><td>7:00 AM</td><td>Early</td><td>10</td></tr>
-     <tr><td>US Ops</td><td>Western</td><td>Canyon</td><td>MSCA</td><td>NGQ16QN</td><td>outbound</td><td>11:09 AM</td><td>On Time</td><td>0</td></tr>
-     <tr><td>US Ops</td><td>Western</td><td>Pacific Northwest</td><td>EATA</td><td>8XV3301</td><td>outbound</td><td>12:12 PM</td><td>Early</td><td>16</td></tr>
-     <tr><td>US Ops</td><td>Western</td><td>Pacific Northwest</td><td>BVUA</td><td>AKJFH1V</td><td>outbound</td><td>4:24 AM</td><td>Early</td><td>50</td></tr>
-     <tr><td>US Ops</td><td>Central</td><td>Three Rivers</td><td>LNNA</td><td>WGVADO1</td><td>inbound</td><td>9:41 AM</td><td>Late</td><td>53</td></tr>
-     <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>MGEA</td><td>KRDFZZD</td><td>outbound</td><td>3:32 PM</td><td>Late</td><td>9</td></tr>
-     <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>AHNA</td><td>65GOMZY</td><td>outbound</td><td>11:34 PM</td><td>Late</td><td>4</td></tr>
-     <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>NCQA</td><td>00AHYWQ</td><td>outbound</td><td>1:20 PM</td><td>Late</td><td>28</td></tr>
-     <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>AGSA</td><td>DIUM456</td><td>inbound</td><td>10:02 AM</td><td>Late</td><td>26</td></tr>
-    </tbody>
-      <tfoot>
-          <tr><th>Division</th><th>Region</th><th>District</th><th>Location</th><th>Vehicle ID</th><th>Inbound/Outbound</th><th>ETA</th><th>Arrival Status</th><th>Early/Late(mins)</th></tr>
-      </tfoot>
-</table>
+<table id="example" class="table table-striped table-bordered nowrap" cellspacing="0"  width="100%"></table>
     <div class="spacer" style="height:15vh"></div>
-<div STYLE="background-color:transparent">
-	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:#0099e6;">
+      
+	
+<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:rgb(76, 76, 127);">
 		<div class="container" style="min-width: 100%">
 			<div class="row" style="min-width: 100%">
 				<div class="col" style="min-width: 33%; text-align: center">
 					
 					<div class="btn-group dropup btn-group-sm">
-						<button  type="button" onclick="iconclick()" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#0099e6; color:#fff; border:none">
-							<i class="fas fa-filter"  style="font-size: 3em; color: white"></i>
+						<button type="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+								 style="background-color:rgb(76, 76, 127); color:#fff; border:none">
+							<i class="fas fa-filter" style="font-size: 3em; color: white"></i>
 						</button>
-                        <div class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9">
-							<label style="font-size:3vmin">Region:</label>
-							<br/>
-							<div class="selectWrapper">
-								<select id="Region">
-									  <option value="none" selected="selected">None Selected</option>
-									  <option value="Eastern">Eastern</option>
-									  <option value="Western">Western</option>
-									  <option value="Central">Central</option>
-									  <option value="Southern">Southern</option>
-								</select>
-							</div>
-							<br/>
-						
-							<label style="font-size:3vmin">District:</label>
-							<br/>
-							<div class="selectWrapper">
-								<select id="District">
-									  <option class="regionSearch_0" value="0" selected="selected">None Selected</option>
-									  <option class="regionSearch_1" value="1">Bostonian</option>
-									  <option class="regionSearch_1" value="2">Big Apple</option>
-									  <option class="regionSearch_1" value="3">Capital</option>
-                                      <option class="regionSearch_2" value="4">Canyon</option>
-                                      <option class="regionSearch_2" value="5">Delta</option>
-                                      <option class="regionSearch_2" value="6">Mountain</option>
-                                      <option class="regionSearch_2" value="7">Pacific Northwest</option>
-                                      <option class="regionSearch_3" value="8">Three Rivers</option>
-                                      <option class="regionSearch_4" value="9">Southeast</option>
-
-								</select>
-							</div>
-							<br/>
-						
-							<label style="font-size:3vmin">Location:</label>
-							<br/>
-							<div class="selectWrapper">
-								<select id="Location" >
-                                      <option class="districtSearch_0" value="none" selected="selected">None Selected</option>
-									  <option class="districtSearch_1" value="ORHA">ORHA</option>
-									  <option class="districtSearch_1" value="BEDA">BEDA</option>
-									  <option class="districtSearch_1" value="NZWA">NZWA</option>
-									  <option class="districtSearch_1" value="BVYA">BVYA</option>
-									  <option class="districtSearch_2" value="NYCA">NYCA</option>
-									  <option class="districtSearch_2" value="JRBA">JRBA</option>
-									  <option class="districtSearch_2" value="WTCA">WTCA</option>
-    					              <option class="districtSearch_3" value="GAIA">GAIA</option>
-									  <option class="districtSearch_3" value="HGRA">HGRA</option>
-									  <option class="districtSearch_3" value="DGNA">DGNA</option>
-                                      <option class="districtSearch_4" value="ZSYA">ZSYA</option>
-                                      <option class="districtSearch_4" value="BTFA">BTFA</option>
-                                      <option class="districtSearch_4" value="MSCA">MSCA</option>
-                                      <option class="districtSearch_7" value="EATA">EATA</option>
-                                      <option class="districtSearch_7" value="BVUA">BVUA</option>
-                                      <option class="districtSearch_8" value="LNNA">LNNA</option>
-                                      <option class="districtSearch_9" value="MGEA">MGEA</option>
-                                      <option class="districtSearch_9" value="AHNA">AHNA</option>
-                                      <option class="districtSearch_9" value="NCQA">NCQA</option>
-                                      <option class="districtSearch_9" value="AGSA">AGSA</option>								  
-								</select>
-							</div>
-							<br/>
-							<p style="font-size:3vmin;">Manager:<br/><span style="font-size:2vmin">Manager Name</span></p>
-                            <button onclick="resetDrillDown()" style="background-color:lightgray"> Reset to Default </button>
+						<div id="drill-down" class="dropdown-menu text-left" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; padding:10px">
 						</div>
 					</div>
 				</div>
-				
-				<div class="col" style="min-width: 33%; text-align: center">
+                <div class="col" style="min-width: 33%; text-align: center">
 					<div class="btn-group dropup btn-group-sm">
-						<button class="filter" type="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
-								 style="background-color:#0099e6; color:#fff; border:none">
+						<button type="button" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"
+								 style="background-color:rgb(76, 76, 127); color:#fff; border:none">
 							<a><i class="fas fa-cog" style="font-size: 3em; color: white"></i></a>
 						</button>
-                        
-                        <div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%">
-							 Drag and Drop Tiers 
+						<div class="dropdown-menu text-left scroll-menu" style="width: 70vw; max-width: 300px; background-color: #f9f9f9; left:-200%; right:0%; padding: 10px;">
+							<!-- Drag and Drop Tiers -->
 							<label style="font-size:3vmin">Default Drilldown:</label>
 							<br/>
-							<div class="container">
-								<div class="row" style="width: 100%">
-									<div class="col" style="width: 33%"><label style="font-size:2vmin">Region:</label></div>
-									<div class="col" style="width: 33%">
-											<select>
-											  <option value="west">Western</option>
-											  <option value="east">Eastern</option>
-											  <option value="cent">Central</option>
-											  <option value="south">Southern</option>
-											</select>
-									</div>
-									<div class="col"  style="width: 33%"></div>
-								</div>
-								<div class="row" style="width: 100%">
-									<div class="col" style="width: 33%"><label style="font-size:2vmin">District:</label></div>
-									<div class="col" style="width: 33%">
-											<select>
-											  <option value="west">Western</option>
-											  <option value="east">Eastern</option>
-											  <option value="cent">Central</option>
-											  <option value="south">Southern</option>
-											</select>
-									</div>
-									<div class="col" style="width: 33%"></div>
-								</div>
-								<div class="row" style="width: 100%">
-									<div class="col" style="width: 33%"><label style="font-size:2vmin">Location:</label></div>
-									<div class="col" style="width: 33%">
-											<select>
-											  <option value="west">Western</option>
-											  <option value="east">Eastern</option>
-											  <option value="cent">Central</option>
-											  <option value="south">Southern</option>
-											</select>
-									</div>
-								</div>
+							<div id="default-drill-down">
 							</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-	</nav>
-      </div>
+    </div>
+      </nav>
+							
 
-
-
-	<script src="menu.js"></script>
+    <script src="menu.js"></script>
 	
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
+      
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -316,14 +118,22 @@ style="width:100%">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+         
+
   
   <script>
 	$('.dropdown-menu').on('click', function(event) {
 		event.stopPropagation();
 	});
-	$('.selectpicker').selectpicker({
-		container: 'body'
+	$('.dropdown-menu').on('change', function(event) {
+		
+		if (event.originalEvent.path[0].id.includes("Default")) {
+			updateDefaultDrillDown();
+		} else {
+			updateDrillDown();
+		}
 	});
+
 	$('body').on('click', function(event) {
 		var target = $(event.target);
 		if (target.parents('.bootstrap-select').length) {
@@ -333,9 +143,5 @@ style="width:100%">
 	});	
 	
   </script>
-         
-      
-
-    </body>
-    
+</body>
 </html>

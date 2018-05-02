@@ -52,13 +52,13 @@ function generateData(data) {
 		if(data[label][0] > data[label][1]) {
 			plannedData.push(data[label][0]);
 			actualData.push(data[label][0]-data[label][1]);
-			actualColors.push( "#006699");
-			plannedColors.push('#4d0000');
+			actualColors.push( 'rgb(76, 76, 127)');
+			plannedColors.push('rgb(204, 173, 143)');
 		} else {
 			plannedData.push(data[label][1]);
 			actualData.push(data[label][1]-data[label][0]);
-			plannedColors.push( "#006699");
-			actualColors.push('#4d0000');
+			plannedColors.push( "rgb(76, 76, 127)");
+			actualColors.push('rgb(204, 173, 143)');
 		}
 		
 	}
@@ -91,6 +91,7 @@ var chart;
 var placeChart;
 var hoveringOver = "";
 var animationDuration = 1000;
+var hovering = 0;
 
 function drawPPHCharts() {
 	updatePPHData();
@@ -124,6 +125,7 @@ function drawPPHCharts() {
 					},
 					ticks: {
                               beginAtZero: true,
+							  fontSize: 10
 					}
 				}, ],
 				xAxes: [{
@@ -139,6 +141,7 @@ function drawPPHCharts() {
 					display: false,
 					ticks: {
 						autoSkip: false,
+						fontSize: 10
 					},
 					stacked: true,
 					id: 'plannedx',
@@ -151,6 +154,9 @@ function drawPPHCharts() {
 				}]
 			},
 			tooltips: {
+				custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 				displayColors: false,
 				callbacks: {
 					label: function(tooltipItems, data) { 
@@ -177,6 +183,9 @@ function drawPPHCharts() {
 					responsive: true,
 					maintainAspectRatio: false,
 					tooltips: {
+						custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 						displayColors: false,
 						callbacks: {
 							label: function(tooltipItems, data) { 
@@ -279,6 +288,7 @@ function handleTimeClick(data) {
 window.onload = function() {
 	drawPPHCharts();
 	setInterval(function() {
+		if (!hovering) 
 		updateTime(drawPPHCharts);
 	}, 500);
 }
