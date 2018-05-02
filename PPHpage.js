@@ -91,6 +91,7 @@ var chart;
 var placeChart;
 var hoveringOver = "";
 var animationDuration = 1000;
+var hovering = 0;
 
 function drawPPHCharts() {
 	updatePPHData();
@@ -151,6 +152,9 @@ function drawPPHCharts() {
 				}]
 			},
 			tooltips: {
+				custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 				displayColors: false,
 				callbacks: {
 					label: function(tooltipItems, data) { 
@@ -177,6 +181,9 @@ function drawPPHCharts() {
 					responsive: true,
 					maintainAspectRatio: false,
 					tooltips: {
+						custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 						displayColors: false,
 						callbacks: {
 							label: function(tooltipItems, data) { 
@@ -279,6 +286,7 @@ function handleTimeClick(data) {
 window.onload = function() {
 	drawPPHCharts();
 	setInterval(function() {
+		if (!hovering) 
 		updateTime(drawPPHCharts);
 	}, 500);
 }
