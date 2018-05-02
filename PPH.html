@@ -4,6 +4,7 @@
 
 <head>
 <link rel="stylesheet" type="text/css" href="PPHpage.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="PPHpage.js"></script>
@@ -26,9 +27,16 @@
 
 
 <div class="chart-container">
-	<canvas id="canvas"></canvas>
-	<canvas id="canvas2"></canvas>
-
+	<div class="container">
+    		<div class="row">
+			<div class="col-md-6">
+	  			<canvas id="canvas"></canvas>
+			</div>
+			<div class="col-md-6">
+	  			<canvas id="canvas2"></canvas>
+			</div>
+	  	</div>
+	</div>
 </div>
 
 <!-- Footer -->
