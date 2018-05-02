@@ -22,8 +22,7 @@
 }
 .navbar{
     position: fixed;
-    bottom: 0;
-    
+    bottom: 0;   
 }
 .icon {
   display:inline-block;

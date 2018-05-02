@@ -25,27 +25,8 @@
       <script>
         $(document).ready(function() {
             var table = $('#example').DataTable( {
-                /*initComplete: function () {
-                    this.api().columns().every( function () {
-                    var column = this;
-                    var select = $('<select><option value=""></option></select>')
-                        .appendTo( $(column.footer()).empty() )
-                        .on( 'change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-
-                            column
-                                .search( val ? '^'+val+'$' : '', true, false )
-                                .draw();
-                        } );
-
-                    column.data().unique().sort().each( function ( d, j ) {
-                        select.append( '<option value="'+d+'">'+d+'</option>' )
-                    } );
-                } );
-            },*/
-                        "scrollY": "70vh",
+                
+                        "scrollY": "65vh",
                         "paging": false,
                         "bInfo": false,
                         rowReorder: {
@@ -180,11 +161,11 @@ style="width:100%">
      <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>NCQA</td><td>00AHYWQ</td><td>outbound</td><td>1:20 PM</td><td>Late</td><td>28</td></tr>
      <tr><td>US Ops</td><td>Southern</td><td>Southeast</td><td>AGSA</td><td>DIUM456</td><td>inbound</td><td>10:02 AM</td><td>Late</td><td>26</td></tr>
     </tbody>
-      <!--<tfoot>
+      <tfoot>
           <tr><th>Division</th><th>Region</th><th>District</th><th>Location</th><th>Vehicle ID</th><th>Inbound/Outbound</th><th>ETA</th><th>Arrival Status</th><th>Early/Late(mins)</th></tr>
-      </tfoot>-->
+      </tfoot>
 </table>
-          <div class="spacer" style="height:15vh"></div>
+    <div class="spacer" style="height:15vh"></div>
 <div STYLE="background-color:transparent">
 	<nav class="navbar navbar-inverse bg-inverse fixed-bottom navbar-expand-sm dropup" style="background-color:#0099e6;">
 		<div class="container" style="min-width: 100%">
