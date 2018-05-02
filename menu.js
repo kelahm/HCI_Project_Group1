@@ -93,6 +93,9 @@ function populateDrillDownMenu(region, district, location) {
 }
 
 function resetDrillDown() {
+	if (window.location.href == "https://rawgit.com/kelahm/HCI_Project_Group1/master/VolumeAvailability.html"){
+        	location.reload();
+    	}
 	var region = document.getElementById("DefaultRegion").value;
 	var district = document.getElementById("DefaultDistrict").value;
 	var location = document.getElementById("DefaultLocation").value;
@@ -103,10 +106,6 @@ function resetDrillDown() {
 	animationDuration = 1000;
 	populateDrillDownMenu(region, district, location);
 	refreshData();
-	
-	if (window.location.href == "https://rawgit.com/kelahm/HCI_Project_Group1/master/VolumeAvailability.html"){
-        location.reload();
-    }
 }
 
 
