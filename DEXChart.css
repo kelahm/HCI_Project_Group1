@@ -47,12 +47,13 @@ canvas {
 	padding: 1.8vh;
 	text-align: right;
 	margin-top: 0vh;
-	margin-bottom: -1vh;
+	margin-bottom: 0vh;
 	}
 	
 	.mapTierNames h5 {
 			font-size: 16px;
 			font-weight: bold;
+			
 	}
 }
 
