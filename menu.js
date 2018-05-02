@@ -103,6 +103,10 @@ function resetDrillDown() {
 	animationDuration = 1000;
 	populateDrillDownMenu(region, district, location);
 	refreshData();
+	
+	if (window.location.href == "https://rawgit.com/kelahm/HCI_Project_Group1/master/VolumeAvailability.html"){
+        location.reload();
+    }
 }
 
 
