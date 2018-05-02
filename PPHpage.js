@@ -38,6 +38,7 @@ var placeJustData = [
 ];
 
 var DrillDownLabel = "";
+var axisLabel;
 
 function generateData(data) {
 	var plannedData = [];
@@ -51,18 +52,16 @@ function generateData(data) {
 		if(data[label][0] > data[label][1]) {
 			plannedData.push(data[label][0]);
 			actualData.push(data[label][0]-data[label][1]);
-			actualColors.push( "rgb(75, 19, 136)");
-			plannedColors.push('rgb(234, 98, 20)');
+			actualColors.push( 'Rgb(76, 76, 127)');
+			plannedColors.push('Rgb(204, 173, 143)');
 		} else {
 			plannedData.push(data[label][1]);
 			actualData.push(data[label][1]-data[label][0]);
-			plannedColors.push( "rgb(75, 19, 136)");
-			actualColors.push('rgb(234, 98, 20)');
+			plannedColors.push( "Rgb(76, 76, 127)");
+			actualColors.push('Rgb(204, 173, 143)');
 		}
 		
 	}
-	
-	console.log(plannedData);
 	
 	return {
 		labels: labels,
@@ -71,14 +70,18 @@ function generateData(data) {
 			backgroundColor: plannedColors,
 			borderColor:  plannedColors,
 			borderWidth: 1,
-			data: plannedData
+			data: plannedData,
+			xAxisID: 'plannedx',
+			stack: 1
 		},
 		{
 			label: 'Actual',
 			backgroundColor:  actualColors,
 			borderColor: actualColors,
 			borderWidth: 1,	
-			data: actualData
+			data: actualData,
+			xAxisID: 'actualx',
+			stack: 1
 		}]
 	};
 }
@@ -87,6 +90,8 @@ function generateData(data) {
 var chart;		
 var placeChart;
 var hoveringOver = "";
+var animationDuration = 1000;
+var hovering = 0;
 
 function drawPPHCharts() {
 	updatePPHData();
@@ -100,6 +105,10 @@ function drawPPHCharts() {
 		type: 'bar',
 		data: chartData,
 		options: {
+			animation: {
+        duration: animationDuration
+    },
+			onClick: handleTimeClick,
 			responsive: true,
 			maintainAspectRatio: false,
 			title: {
@@ -112,20 +121,44 @@ function drawPPHCharts() {
 					stacked: true,
 					scaleLabel: {
 						display: true,
-						labelString: 'Packages Per Hour'
+						labelString: axisLabel,
+					},
+					ticks: {
+                              beginAtZero: true,
 					}
-				}],
+				}, ],
 				xAxes: [{
+					display: true,
 					ticks: {
 						autoSkip: false,
 					},
-					stacked: true
+					stacked: true,
+					id: 'actualx',
+					barPercentage: .4
+				},
+				{
+					display: false,
+					ticks: {
+						autoSkip: false,
+					},
+					stacked: true,
+					id: 'plannedx',
+					type: 'category',
+                          categoryPercentage: 1,
+                          barPercentage: .7,
+                          gridLines: {
+                              offsetGridLines: true
+                          }
 				}]
 			},
 			tooltips: {
+				custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 				displayColors: false,
 				callbacks: {
 					label: function(tooltipItems, data) { 
+					    hoveringOver = tooltipItems.xLabel;
 						return  ['Actual: ' + timeJustData[tooltipItems.index][0], "Planned: " + timeJustData[tooltipItems.index][1]];
 					},
 				}
@@ -141,10 +174,16 @@ function drawPPHCharts() {
 				type: 'bar',
 				data: chartData,
 				options: {
+					animation: {
+						duration: animationDuration
+					},
 					onClick: handleLocationClick,
 					responsive: true,
 					maintainAspectRatio: false,
 					tooltips: {
+						custom: function(tooltip) {
+							hovering = tooltip.opacity;
+						},
 						displayColors: false,
 						callbacks: {
 							label: function(tooltipItems, data) { 
@@ -163,22 +202,95 @@ function drawPPHCharts() {
 							stacked: true,
 							scaleLabel: {
         display: true,
-        labelString: 'Average Packages Per Hour'
+        labelString: 'Packages',
       }
 						}],
 						xAxes: [{
+							display: true,
+							id: "actualx",
 							ticks: {
 								autoSkip: false,
 							},
-							stacked: true
-						}]
+							stacked: true,
+							barPercentage: .4,
+						}, {
+					display: false,
+					ticks: {
+						autoSkip: false,
+					},
+					stacked: true,
+					id: 'plannedx',
+					type: 'category',
+                          categoryPercentage: 1,
+                          barPercentage: .7,
+                          gridLines: {
+                              offsetGridLines: true
+                          }
+				}]
 					}
 				}
 			});
 	}
+animationDuration = 0;
 };
 
 function handleLocationClick(data) {
+	animationDuration = 1000;
 	drillDownTo(hoveringOver);
+	drawPPHCharts();
+}
+
+function handleTimeClick(data) {
+	var start = bucketRanges[hoveringOver];
+	if (start) {
+	animationDuration = 1000;
+	var end = new Date(start.getTime());
+	end.setTime(end.getTime() + bucketSize * 60 * 60 * 1000);
+	console.log(start, end);
+	
+	var sdate = (start.getYear()-100+2000) + "-";
+	if (start.getMonth() < 10) sdate += "0";
+	sdate += start.getMonth() + "-";
+	if (start.getDate() < 10) sdate += "0";
+	sdate += start.getDate();
+	
+	var edate = (end.getYear()-100+2000) + "-";
+	if (end.getMonth() < 10) edate += "0";
+	edate += end.getMonth() + "-";
+	if (end.getDate() < 10) edate += "0";
+	edate += end.getDate();
+	
+	var stime = "";
+	if (start.getHours() < 10) stime += 0;
+	stime += start.getHours() + ":";
+	if (start.getMinutes() < 10) stime += 0;
+	stime += start.getMinutes();
+	
+	var etime = "";
+	if (end.getHours() < 10) etime += 0;
+	etime += end.getHours() + ":";
+	if (end.getMinutes() < 10) etime += 0;
+	etime += end.getMinutes();
+	document.getElementById("sdate").value =  sdate;
+	document.getElementById("edate").value =  edate;
+	document.getElementById("stime").value = stime;
+	document.getElementById("etime").value = etime;
+	
+	var now = new Date();
+	if (now - end > 0) liveData = false;
+	
+	drawPPHCharts();
+	}
+}
+
+window.onload = function() {
+	drawPPHCharts();
+	setInterval(function() {
+		if (!hovering) 
+		updateTime(drawPPHCharts);
+	}, 500);
+}
+
+function refreshData() {
 	drawPPHCharts();
 }
