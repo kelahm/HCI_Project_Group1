@@ -93,9 +93,6 @@ function populateDrillDownMenu(region, district, location) {
 }
 
 function resetDrillDown() {
-	if (window.location.href == "https://rawgit.com/kelahm/HCI_Project_Group1/master/VolumeAvailability.html"){
-        	location.reload();
-    	}
 	var region = document.getElementById("DefaultRegion").value;
 	var district = document.getElementById("DefaultDistrict").value;
 	var location = document.getElementById("DefaultLocation").value;
