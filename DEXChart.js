@@ -27,7 +27,6 @@ function showTitles() {
 	var container = document.getElementById("tierNames");
 	container.innerHTML = "";
 
-	
 	var percent;
 	for (var tier in tiers) {
 		percent = Math.floor(tiers[tier].length / exceptions.length * 100);
@@ -215,8 +214,6 @@ function showChart() {
 		Chart.plugins.register({
 			afterDatasetsDraw: function(chart) {
 				if(chart.chart.config.type != "bar") return;
-				console.log(window.innerWidth);
-				if(window.innerWidth < 900) return;
 
 				var ctx = chart.chart.ctx;
 
