@@ -225,6 +225,9 @@ function showChart() {
 							ctx.fillStyle = 'rgb(0, 0, 0)';
 
 							var fontSize = 10;
+							
+							if (window.innerWidth < 900) fontSize = 8;
+							
 							var fontStyle = 'normal';
 							var fontFamily = 'Verdana, "Geneva", sans-serif';
 							ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
